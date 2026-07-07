@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<script src="./productos.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:#f6f1e7}
+  ::selection{background:#e7cfa0;color:#221a10}
+  @keyframes hk-flicker{0%,100%{opacity:.78;transform:scale(1)}25%{opacity:1;transform:scale(1.04)}45%{opacity:.7;transform:scale(.98)}65%{opacity:.92;transform:scale(1.02)}85%{opacity:.82;transform:scale(1)}}
+  @keyframes hk-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+  @keyframes hk-sheen{0%{transform:translateX(-130%) skewX(-22deg)}55%,100%{transform:translateX(520%) skewX(-22deg)}}
+  @keyframes hk-cue{0%{opacity:0;transform:translateY(-4px)}45%{opacity:1}100%{opacity:0;transform:translateY(7px)}}
+  @media (max-width:768px){
+    #hk-promo{font-size:0.6rem !important;letter-spacing:0 !important;padding:0 10px}
+    .hk-promo-tail{display:none}
+    #hk-nav{padding:0.8rem 1.2rem !important}
+    #hk-navlinks{gap:1.1rem !important}
+    #top{grid-template-columns:1fr !important;min-height:auto !important;padding:116px 7vw 2.5rem !important;gap:1.8rem !important;text-align:center}
+    #top h1{font-size:2.7rem !important}
+    #hk-hero-sub{margin-left:auto !important;margin-right:auto !important}
+    #hk-hero-actions{justify-content:center !important}
+    #hk-hero-kanji{display:none !important}
+    #hk-hero-cue{display:none !important}
+    #hk-detalles{grid-template-columns:repeat(2,1fr) !important;gap:1.2rem !important}
+  }
+  @media (max-width:430px){
+    #hk-navlink-cat,#hk-navlink-det{display:none !important}
+    #hk-detalles{grid-template-columns:1fr !important}
+    #top h1{font-size:2.3rem !important}
+  }
+</style>
+</helmet>
+
+<div style="font-family:'DM Sans',sans-serif;background:#f6f1e7;color:#221a10;min-height:100vh;overflow-x:hidden;position:relative">
+
+  <!-- PROMO -->
+  <div id="hk-promo" style="position:fixed;top:0;left:0;right:0;z-index:101;height:34px;display:flex;align-items:center;justify-content:center;overflow:hidden;background:linear-gradient(90deg,#b8843e,#c69a5b 50%,#b8843e);color:#fff8ec;font-size:0.78rem;letter-spacing:0.04em">
+    <span style="position:relative;z-index:1;font-weight:300">Envío a todo el país · <strong style="font-weight:600">50% OFF en la 2ª unidad</strong><span class="hk-promo-tail"> · Llevá dos y pagá menos</span></span>
+    <span style="position:absolute;top:0;bottom:0;width:60px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.55),transparent);animation:hk-sheen 5s linear infinite"></span>
+  </div>
+
+  <!-- NAV -->
+  <nav id="hk-nav" style="position:fixed;top:34px;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.05rem 5vw;background:rgba(246,241,231,0.82);backdrop-filter:blur(14px);border-bottom:1px solid rgba(120,90,40,0.08)">
+    <a href="#top" style="display:flex;align-items:baseline;gap:0.5rem;text-decoration:none;color:#221a10">
+      <span style="font-family:'Cormorant Garamond',serif;font-size:1.45rem;font-weight:400">光</span>
+      <span style="font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:400;letter-spacing:0.22em">HIKARI</span>
+    </a>
+    <div id="hk-navlinks" style="display:flex;align-items:center;gap:2rem">
+      <a id="hk-navlink-cat" href="#catalogo" style="text-decoration:none;color:#5f5648;font-size:0.82rem;letter-spacing:0.12em;text-transform:uppercase;transition:color .25s" style-hover="color:#a8763a">Catálogo</a>
+      <a href="https://wa.me/5491173748313" target="_blank" style="display:flex;align-items:center;gap:0.5rem;border:1px solid #cdbf9f;color:#221a10;padding:0.5rem 1.1rem;border-radius:50px;font-size:0.8rem;letter-spacing:0.04em;text-decoration:none;transition:background .3s,color .3s,border-color .3s" style-hover="background:#221a10;color:#f6f1e7;border-color:#221a10">
+        <svg viewBox="0 0 24 24" fill="#25D366" width="15" height="15"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/></svg>
+        WhatsApp
+      </a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="top" style="position:relative;min-height:100vh;display:grid;grid-template-columns:1.05fr 0.95fr;align-items:center;gap:3rem;padding:170px 5vw 5rem;max-width:1340px;margin:0 auto">
+    <div style="position:absolute;top:16%;left:-12%;width:740px;height:740px;border-radius:50%;background:radial-gradient(circle,rgba(224,168,96,0.5),rgba(224,168,96,0) 64%);filter:blur(18px);z-index:0;animation:hk-flicker 7s ease-in-out infinite;pointer-events:none"></div>
+
+    <div style="position:relative;z-index:2">
+      <p style="font-size:0.74rem;letter-spacing:0.32em;text-transform:uppercase;color:#a8763a;margin-bottom:1.6rem">Colección · 光 · Iluminación artesanal</p>
+      <h1 style="font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(2.8rem,6vw,5.2rem);line-height:1.04;letter-spacing:-0.01em;margin-bottom:1.1rem">Cada lámpara<br/>es una <em style="font-style:italic;color:#a8763a">obra de luz</em></h1>
+      <p style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.25rem;color:#8d8170;letter-spacing:0.04em;margin-bottom:1.6rem">光 — Hikari — la esencia de la luz</p>
+      <p id="hk-hero-sub" style="max-width:430px;font-size:1.02rem;font-weight:300;line-height:1.75;color:#6f6557;margin-bottom:2.4rem">Piezas únicas inspiradas en la naturaleza. Cada textura transforma la luz en una atmósfera cálida y serena para tu hogar.</p>
+      <div id="hk-hero-actions" style="display:flex;gap:1rem;flex-wrap:wrap">
+        <a href="#catalogo" style="display:inline-flex;align-items:center;gap:0.6rem;background:#221a10;color:#f6f1e7;padding:0.95rem 1.8rem;border-radius:50px;text-decoration:none;font-size:0.9rem;letter-spacing:0.03em;transition:transform .3s,background .3s,box-shadow .3s" style-hover="transform:translateY(-2px);background:#a8763a;box-shadow:0 14px 30px -12px rgba(168,118,58,0.6)">
+          Ver catálogo
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+        </a>
+        <a href="https://wa.me/5491173748313" target="_blank" style="display:inline-flex;align-items:center;gap:0.6rem;border:1px solid #cdbf9f;color:#221a10;padding:0.95rem 1.6rem;border-radius:50px;text-decoration:none;font-size:0.9rem;letter-spacing:0.03em;transition:transform .3s,border-color .3s" style-hover="transform:translateY(-2px);border-color:#a8763a">
+          <svg viewBox="0 0 24 24" fill="#25D366" width="17" height="17"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/></svg>
+          Consultar
+        </a>
+      </div>
+    </div>
+
+    <div style="position:relative;z-index:1;justify-self:center">
+      <span id="hk-hero-kanji" style="position:absolute;top:-3.4rem;right:-1rem;font-family:'Cormorant Garamond',serif;font-size:7rem;color:rgba(168,118,58,0.14);z-index:0;animation:hk-float 6s ease-in-out infinite;pointer-events:none">光</span>
+      <div style="position:relative;width:min(420px,80vw);aspect-ratio:1;border-radius:22px;overflow:hidden;box-shadow:0 40px 80px -30px rgba(80,52,18,0.55),0 0 0 1px rgba(120,90,40,0.08);transition:box-shadow .5s ease" style-hover="box-shadow:0 44px 90px -28px rgba(80,52,18,0.6),inset 0 0 90px 12px rgba(232,176,104,0.28),0 0 0 1px rgba(120,90,40,0.08)">
+        <img src="fotos/Lampara-07.jpg" alt="Lámpara Hikari Fuji" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform .8s cubic-bezier(.2,.8,.2,1)" style-hover="transform:scale(1.05)"/>
+        <div style="position:absolute;left:1rem;bottom:1rem;display:flex;align-items:center;gap:0.6rem;background:rgba(20,14,8,0.42);backdrop-filter:blur(8px);padding:0.5rem 0.9rem;border-radius:50px;color:#fbf4e6;font-size:0.8rem;letter-spacing:0.05em">
+          <span style="font-family:'Cormorant Garamond',serif;font-size:1.1rem">藤</span> Fuji · Glicinia
+        </div>
+      </div>
+    </div>
+
+    <div id="hk-hero-cue" style="position:absolute;bottom:1.6rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:0.4rem;color:#a8763a;z-index:2">
+      <span style="font-size:0.66rem;letter-spacing:0.26em;text-transform:uppercase">Descubrí</span>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" style="animation:hk-cue 2.2s ease-in-out infinite"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+    </div>
+  </section>
+
+  <!-- DETALLES / VALORES -->
+  <section id="detalles" style="background:#221a10;color:#f1e7d6;padding:3.2rem 5vw">
+    <div id="hk-detalles" style="max-width:1180px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem">
+      <div style="display:flex;align-items:center;gap:1rem">
+        <span style="flex:none;width:48px;height:48px;border-radius:50%;border:1px solid rgba(224,168,96,0.45);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:#e0a860">手</span>
+        <div><p style="font-size:0.95rem;letter-spacing:0.02em">Hechas a mano</p><p style="font-size:0.78rem;color:#a99a82;font-weight:300">Cada pieza es única</p></div>
+      </div>
+      <div style="display:flex;align-items:center;gap:1rem">
+        <span style="flex:none;width:48px;height:48px;border-radius:50%;border:1px solid rgba(224,168,96,0.45);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:#e0a860">温</span>
+        <div><p style="font-size:0.95rem;letter-spacing:0.02em">Luz cálida o fría</p><p style="font-size:0.78rem;color:#a99a82;font-weight:300">Elegí tu temperatura</p></div>
+      </div>
+      <div style="display:flex;align-items:center;gap:1rem">
+        <span style="flex:none;width:48px;height:48px;border-radius:50%;border:1px solid rgba(224,168,96,0.45);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:#e0a860">灯</span>
+        <div><p style="font-size:0.95rem;letter-spacing:0.02em">3 intensidades</p><p style="font-size:0.78rem;color:#a99a82;font-weight:300">Regulá la atmósfera</p></div>
+      </div>
+      <div style="display:flex;align-items:center;gap:1rem">
+        <span style="flex:none;width:48px;height:48px;border-radius:50%;border:1px solid rgba(224,168,96,0.45);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:#e0a860">充</span>
+        <div><p style="font-size:0.95rem;letter-spacing:0.02em">Carga USB</p><p style="font-size:0.78rem;color:#a99a82;font-weight:300">Conectá donde quieras</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CATALOGO -->
+  <section id="catalogo" style="max-width:1300px;margin:0 auto;padding:5rem 5vw 5rem">
+    <div style="text-align:center;margin-bottom:2.6rem">
+      <p style="font-size:0.72rem;letter-spacing:0.3em;text-transform:uppercase;color:#a8763a;margin-bottom:0.9rem">光 · Catálogo</p>
+      <h2 style="font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(2.2rem,4.5vw,3.4rem);line-height:1.1">Nuestras lámparas</h2>
+    </div>
+
+    <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:0.7rem;margin-bottom:0.9rem">
+      <sc-for list="{{ pills }}" as="pill" hint-placeholder-count="6">
+        <button onClick="{{ pill.onClick }}" style="{{ pill.style }}" style-hover="border-color:#a8763a">{{ pill.label }}</button>
+      </sc-for>
+    </div>
+    <p style="text-align:center;color:#a89c86;font-size:0.78rem;letter-spacing:0.08em;margin-bottom:2.6rem">{{ count }}</p>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.8rem">
+      <sc-for list="{{ products }}" as="p" hint-placeholder-count="8">
+        <div style="background:#fffdf8;border:1px solid #ece2cd;border-radius:18px;overflow:hidden;box-shadow:0 1px 2px rgba(70,46,14,0.05);display:flex;flex-direction:column;height:100%;transition:transform .45s cubic-bezier(.2,.8,.2,1),box-shadow .45s ease,border-color .4s ease" style-hover="transform:translateY(-7px);box-shadow:0 28px 64px -24px rgba(70,46,14,0.42);border-color:#e7cfa0">
+          <div style="position:relative;aspect-ratio:1;overflow:hidden;background:#1d1610;transition:box-shadow .5s ease" style-hover="box-shadow:inset 0 0 90px 12px rgba(232,176,104,0.34)">
+            <img src="{{ p.photo }}" alt="{{ p.name }}" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform .65s cubic-bezier(.2,.8,.2,1)" style-hover="transform:scale(1.08)"/>
+            <span style="position:absolute;top:0.5rem;right:0.9rem;font-family:'Cormorant Garamond',serif;font-size:3.2rem;color:#fff;opacity:0.08;pointer-events:none;z-index:1">{{ p.kanji }}</span>
+            <sc-if value="{{ p.hasMultiple }}" hint-placeholder-val="{{ false }}">
+              <button onClick="{{ p.onPrev }}" aria-label="Imagen anterior" style="position:absolute;left:0.6rem;top:50%;transform:translateY(-50%);z-index:2;width:38px;height:38px;border-radius:50%;border:1px solid rgba(255,255,255,0.25);background:rgba(24,16,8,0.42);color:#fff;cursor:pointer;font-size:1.25rem;line-height:1;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px);transition:background .2s,transform .2s" style-hover="background:rgba(168,118,58,0.92);transform:translateY(-50%) scale(1.07)">‹</button>
+              <button onClick="{{ p.onNext }}" aria-label="Imagen siguiente" style="position:absolute;right:0.6rem;top:50%;transform:translateY(-50%);z-index:2;width:38px;height:38px;border-radius:50%;border:1px solid rgba(255,255,255,0.25);background:rgba(24,16,8,0.42);color:#fff;cursor:pointer;font-size:1.25rem;line-height:1;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px);transition:background .2s,transform .2s" style-hover="background:rgba(168,118,58,0.92);transform:translateY(-50%) scale(1.07)">›</button>
+              <span style="position:absolute;bottom:0.7rem;left:50%;transform:translateX(-50%);z-index:2;font-size:0.64rem;letter-spacing:0.1em;color:#fff;background:rgba(24,16,8,0.5);padding:0.18rem 0.6rem;border-radius:50px;backdrop-filter:blur(4px)">{{ p.counter }}</span>
+            </sc-if>
+          </div>
+          <div style="padding:1.4rem 1.4rem 1.5rem;display:flex;flex-direction:column;flex:1">
+            <div style="display:flex;align-items:baseline;gap:0.55rem;margin-bottom:0.15rem">
+              <span style="font-family:'Cormorant Garamond',serif;font-size:1.05rem;color:#c69a5b">{{ p.kanji }}</span>
+              <h3 style="font-family:'Cormorant Garamond',serif;font-weight:500;font-size:1.45rem;line-height:1">{{ p.name }}</h3>
+            </div>
+            <p style="font-size:0.68rem;text-transform:uppercase;letter-spacing:0.18em;color:#a89c86;margin-bottom:0.7rem">{{ p.meaning }}</p>
+            <p style="font-size:0.86rem;font-weight:300;line-height:1.55;color:#6f6557;margin-bottom:1.1rem;text-wrap:pretty">{{ p.desc }}</p>
+            <div style="display:flex;flex-wrap:wrap;gap:0.4rem;margin-bottom:1.2rem">
+              <sc-for list="{{ p.chips }}" as="chip" hint-placeholder-count="3">
+                <span style="font-size:0.66rem;letter-spacing:0.05em;color:#7a7062;border:1px solid #ece2cd;border-radius:50px;padding:0.22rem 0.6rem;white-space:nowrap">{{ chip }}</span>
+              </sc-for>
+            </div>
+            <sc-if value="{{ p.showColors }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;flex-direction:column;gap:0.5rem;margin-bottom:1.2rem">
+                <sc-if value="{{ p.showLamp }}" hint-placeholder-val="{{ true }}">
+                  <div style="display:flex;align-items:center;gap:0.5rem">
+                    <span style="flex:none;width:3.4rem;font-size:0.58rem;text-transform:uppercase;letter-spacing:0.14em;color:#b3a78f">Lámpara</span>
+                    <div style="display:flex;gap:0.28rem;flex-wrap:wrap">
+                      <sc-for list="{{ p.lampSwatches }}" as="c" hint-placeholder-count="1">
+                        <span style="{{ c.style }}" title="{{ c.hex }}"></span>
+                      </sc-for>
+                    </div>
+                  </div>
+                </sc-if>
+                <sc-if value="{{ p.showBase }}" hint-placeholder-val="{{ true }}">
+                  <div style="display:flex;align-items:center;gap:0.5rem">
+                    <span style="flex:none;width:3.4rem;font-size:0.58rem;text-transform:uppercase;letter-spacing:0.14em;color:#b3a78f">Base</span>
+                    <div style="display:flex;gap:0.28rem;flex-wrap:wrap">
+                      <sc-for list="{{ p.baseSwatches }}" as="c" hint-placeholder-count="1">
+                        <span style="{{ c.style }}" title="{{ c.hex }}"></span>
+                      </sc-for>
+                    </div>
+                  </div>
+                </sc-if>
+              </div>
+            </sc-if>
+            <div style="margin-top:auto;display:flex;align-items:baseline;gap:0.5rem;padding-bottom:1.1rem;border-bottom:1px solid #f0e8d6;margin-bottom:1.1rem">
+              <span style="font-family:'Cormorant Garamond',serif;font-size:1.7rem;color:#a8763a;line-height:1">{{ p.cashFmt }}</span>
+              <span style="font-size:0.66rem;text-transform:uppercase;letter-spacing:0.1em;color:#a89c86">efectivo</span>
+              <span style="margin-left:auto;font-size:0.78rem;color:#8d8170">{{ p.transferFmt }} <span style="font-size:0.64rem;color:#a89c86">transf.</span></span>
+            </div>
+            <button onClick="{{ p.onConsultar }}" style="display:flex;align-items:center;justify-content:center;gap:0.55rem;background:#221a10;color:#f6f1e7;padding:0.8rem;width:100%;border:none;cursor:pointer;font-family:inherit;border-radius:50px;font-size:0.85rem;letter-spacing:0.02em;transition:background .3s,transform .25s" style-hover="background:#a8763a;transform:translateY(-1px)">
+              <svg viewBox="0 0 24 24" fill="#4ade80" width="16" height="16"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/></svg>
+              Comprar
+            </button>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+    <sc-if value="{{ isEmpty }}" hint-placeholder-val="{{ false }}">
+      <div style="text-align:center;padding:3.5rem 1rem 1rem;color:#a89c86">
+        <p style="font-family:'Cormorant Garamond',serif;font-size:1.6rem;color:#c9b896;margin-bottom:0.4rem">光</p>
+        <p style="font-size:0.95rem">No hay lámparas en este rango de precio.</p>
+      </div>
+    </sc-if>
+  </section>
+
+  <!-- FOOTER -->
+  <footer style="background:#18120c;color:#e8dcc7;text-align:center;padding:4rem 2rem 3.5rem">
+    <div style="font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:300;letter-spacing:0.18em;margin-bottom:0.6rem">光 Hikari</div>
+    <p style="color:#a99a82;font-weight:300;font-size:0.92rem;margin-bottom:0.3rem">Lámparas artesanales únicas</p>
+    <p style="color:#7d7160;font-weight:300;font-size:0.82rem;margin-bottom:2rem">Merlo, Buenos Aires · Envíos a todo el país</p>
+    <a href="https://wa.me/5491173748313" target="_blank" style="display:inline-flex;align-items:center;gap:0.6rem;background:#25D366;color:#fff;padding:0.85rem 1.7rem;border-radius:50px;text-decoration:none;font-size:0.9rem;letter-spacing:0.02em;transition:transform .3s,box-shadow .3s" style-hover="transform:translateY(-2px);box-shadow:0 16px 34px -14px rgba(37,211,102,0.6)">
+      <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Consultanos al WhatsApp
+    </a>
+  </footer>
+
+  <!-- MODAL CONSULTA -->
+  <sc-if value="{{ modalOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closeModal }}" style="position:fixed;inset:0;z-index:200;display:flex;align-items:center;justify-content:center;padding:1.2rem;background:rgba(24,16,8,0.55);backdrop-filter:blur(6px)">
+      <div onClick="{{ stop }}" style="position:relative;width:100%;max-width:440px;background:#fffdf8;border:1px solid #ece2cd;border-radius:22px;box-shadow:0 40px 90px -30px rgba(40,26,8,0.6);overflow:hidden;max-height:92vh;overflow-y:auto">
+        <div style="display:flex;align-items:center;gap:1rem;padding:1.3rem 1.4rem;border-bottom:1px solid #f0e8d6">
+          <div style="flex:none;width:64px;height:64px;border-radius:14px;overflow:hidden;background:#1d1610">
+            <img src="{{ m.photo }}" alt="{{ m.name }}" style="width:100%;height:100%;object-fit:cover;display:block"/>
+          </div>
+          <div style="flex:1">
+            <div style="display:flex;align-items:baseline;gap:0.5rem">
+              <span style="font-family:'Cormorant Garamond',serif;font-size:1rem;color:#c69a5b">{{ m.kanji }}</span>
+              <h3 style="font-family:'Cormorant Garamond',serif;font-weight:500;font-size:1.4rem;line-height:1">{{ m.name }}</h3>
+            </div>
+            <p style="font-size:0.68rem;text-transform:uppercase;letter-spacing:0.16em;color:#a89c86;margin-top:0.25rem">{{ m.meaning }}</p>
+          </div>
+          <button onClick="{{ closeModal }}" style="flex:none;width:34px;height:34px;border-radius:50%;border:1px solid #ece2cd;background:#fff;cursor:pointer;color:#8d8170;font-size:1.2rem;line-height:1;display:flex;align-items:center;justify-content:center;transition:all .25s" style-hover="background:#221a10;color:#f6f1e7;border-color:#221a10">×</button>
+        </div>
+
+        <div style="padding:1.4rem">
+          <p style="font-size:0.7rem;text-transform:uppercase;letter-spacing:0.16em;color:#a89c86;margin-bottom:0.6rem">Cantidad</p>
+          <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1.4rem">
+            <button onClick="{{ m.dec }}" style="width:42px;height:42px;border-radius:12px;border:1px solid #e6dcc6;background:#fff;cursor:pointer;font-size:1.4rem;color:#221a10;display:flex;align-items:center;justify-content:center;transition:all .2s" style-hover="border-color:#a8763a;color:#a8763a">−</button>
+            <span style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;min-width:2ch;text-align:center">{{ m.qty }}</span>
+            <button onClick="{{ m.inc }}" style="width:42px;height:42px;border-radius:12px;border:1px solid #e6dcc6;background:#fff;cursor:pointer;font-size:1.4rem;color:#221a10;display:flex;align-items:center;justify-content:center;transition:all .2s" style-hover="border-color:#a8763a;color:#a8763a">+</button>
+            <span style="margin-left:auto;font-size:0.8rem;color:#8d8170">{{ m.unitFmt }} <span style="font-size:0.66rem;color:#a89c86">c/u</span></span>
+          </div>
+
+          <p style="font-size:0.7rem;text-transform:uppercase;letter-spacing:0.16em;color:#a89c86;margin-bottom:0.6rem">Temperatura de luz</p>
+          <div style="display:flex;gap:0.6rem;margin-bottom:1.4rem">
+            <button onClick="{{ m.setWarm }}" style="{{ m.lightWarmStyle }}"><span style="width:11px;height:11px;border-radius:50%;background:#f0b352;display:inline-block"></span>Cálida</button>
+            <button onClick="{{ m.setCool }}" style="{{ m.lightCoolStyle }}"><span style="width:11px;height:11px;border-radius:50%;background:#bcd6f0;display:inline-block"></span>Fría</button>
+          </div>
+
+          <sc-if value="{{ m.showLampColors }}" hint-placeholder-val="{{ true }}">
+            <p style="font-size:0.7rem;text-transform:uppercase;letter-spacing:0.16em;color:#a89c86;margin-bottom:0.6rem">Color de la lámpara</p>
+            <div style="display:flex;flex-wrap:wrap;gap:0.55rem;margin-bottom:1.4rem">
+              <sc-for list="{{ m.lampColors }}" as="c" hint-placeholder-count="1">
+                <div onClick="{{ c.onPick }}" style="{{ c.style }}" title="{{ c.hex }}"></div>
+              </sc-for>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ m.showBaseColors }}" hint-placeholder-val="{{ true }}">
+            <p style="font-size:0.7rem;text-transform:uppercase;letter-spacing:0.16em;color:#a89c86;margin-bottom:0.6rem">Color de la base</p>
+            <div style="display:flex;flex-wrap:wrap;gap:0.55rem;margin-bottom:1.4rem">
+              <sc-for list="{{ m.baseColors }}" as="c" hint-placeholder-count="1">
+                <div onClick="{{ c.onPick }}" style="{{ c.style }}" title="{{ c.hex }}"></div>
+              </sc-for>
+            </div>
+          </sc-if>
+
+          <p style="font-size:0.7rem;text-transform:uppercase;letter-spacing:0.16em;color:#a89c86;margin-bottom:0.6rem">Forma de pago</p>
+          <div style="display:flex;gap:0.6rem;flex-wrap:wrap;margin-bottom:1.5rem">
+            <button onClick="{{ m.setCash }}" style="{{ m.payCashStyle }}">Efectivo</button>
+            <button onClick="{{ m.setTrans }}" style="{{ m.payTransStyle }}">Transferencia</button>
+            <button onClick="{{ m.setMp }}" style="{{ m.payMpStyle }}">Mercado Pago</button>
+          </div>
+
+          <div style="background:#f8f2e6;border:1px solid #f0e6d2;border-radius:14px;padding:1rem 1.1rem;margin-bottom:1.3rem">
+            <div style="display:flex;justify-content:space-between;font-size:0.86rem;color:#6f6557;margin-bottom:0.45rem"><span>Subtotal</span><span>{{ m.subtotalFmt }}</span></div>
+            <sc-if value="{{ m.hasDiscount }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;justify-content:space-between;font-size:0.86rem;color:#a8763a;margin-bottom:0.45rem"><span>Promo 2ª unidad −50%</span><span>{{ m.discountFmt }}</span></div>
+            </sc-if>
+            <div style="display:flex;justify-content:space-between;align-items:baseline;border-top:1px solid #ece0c8;padding-top:0.65rem;margin-top:0.5rem">
+              <span style="font-size:0.78rem;text-transform:uppercase;letter-spacing:0.1em;color:#8d8170">Total</span>
+              <span style="font-family:'Cormorant Garamond',serif;font-size:1.95rem;color:#a8763a;line-height:1">{{ m.totalFmt }}</span>
+            </div>
+          </div>
+
+          <a href="{{ m.wa }}" target="_blank" style="display:flex;align-items:center;justify-content:center;gap:0.55rem;background:#25D366;color:#fff;padding:0.95rem;border-radius:50px;text-decoration:none;font-size:0.92rem;letter-spacing:0.02em;transition:transform .25s,box-shadow .3s" style-hover="transform:translateY(-2px);box-shadow:0 16px 34px -14px rgba(37,211,102,0.6)">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Comprar por WhatsApp
+          </a>
+          <p style="text-align:center;font-size:0.72rem;color:#a89c86;margin-top:0.8rem">Te abrimos WhatsApp con tu pedido listo para enviar</p>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { filter: 'all', modal: null, qty: 1, light: 'Cálida', pay: 'Efectivo', slide: {} };
+
+  slideBy(key, dir, n) {
+    if (n < 2) return;
+    this.setState((s) => {
+      const slide = Object.assign({}, s.slide);
+      const cur = slide[key] || 0;
+      slide[key] = ((cur + dir) % n + n) % n;
+      return { slide };
+    });
+  }
+
+  get allProducts() {
+    const raw = (typeof window !== 'undefined' && Array.isArray(window.HIKARI_PRODUCTOS) && window.HIKARI_PRODUCTOS.length)
+      ? window.HIKARI_PRODUCTOS : [];
+    const fmt = (n) => '$' + Number(n).toLocaleString('es-AR');
+    const luzChip = (l) => l === 'calida' ? 'Luz cálida' : (l === 'fria' ? 'Luz fría' : 'Cálida / fría');
+    const conChip = (c) => c === 'enchufe' ? 'Enchufe: 3 patas' : 'Enchufe: USB';
+    return raw.map((d) => {
+      const cash = Number(d.precioEfectivo) || 0;
+      const trans = Number(d.precioTransferencia) || cash;
+      const inten = Number(d.intensidades) || 0;
+      const alt = Number(d.alturaCm) || 0;
+      const chips = [luzChip(d.luz)];
+      if (inten > 0) chips.push(inten + (inten === 1 ? ' intensidad' : ' intensidades'));
+      if (alt > 0) chips.push('Altura ' + alt + ' cm');
+      chips.push(conChip(d.conector));
+      const fotos = (Array.isArray(d.fotos) && d.fotos.length ? d.fotos : (d.foto ? [d.foto] : [])).filter(Boolean);
+      const colLamp = Array.isArray(d.coloresLampara) ? d.coloresLampara : ['#FFFFFF'];
+      const colBase = Array.isArray(d.coloresBase) ? d.coloresBase : ['#FFFFFF'];
+      return {
+        coloresLampara: colLamp,
+        coloresBase: colBase,
+        name: d.nombre, kanji: d.kanji, meaning: d.significado, desc: d.descripcion,
+        cashNum: cash, transferNum: trans,
+        cashFmt: fmt(cash), transferFmt: fmt(trans),
+        photo: fotos[0] || d.foto,
+        fotos,
+        luz: d.luz || 'ambas',
+        intensidades: inten, alturaCm: alt, conector: d.conector || 'usb',
+        chips,
+        wa: 'https://wa.me/5491173748313?text=' + encodeURIComponent('¡Hola! Me interesa la lámpara ' + d.nombre + ' (' + d.kanji + '). ¿Está disponible?'),
+      };
+    });
+  }
+
+  componentDidMount() {
+    this._onData = () => this.forceUpdate();
+    window.addEventListener('hikari-productos', this._onData);
+    if (!(Array.isArray(window.HIKARI_PRODUCTOS) && window.HIKARI_PRODUCTOS.length)) {
+      let tries = 0;
+      this._poll = setInterval(() => {
+        tries++;
+        if ((Array.isArray(window.HIKARI_PRODUCTOS) && window.HIKARI_PRODUCTOS.length) || tries > 50) {
+          clearInterval(this._poll); this.forceUpdate();
+        }
+      }, 60);
+    }
+  }
+
+  componentWillUnmount() {
+    if (this._onData) window.removeEventListener('hikari-productos', this._onData);
+    if (this._poll) clearInterval(this._poll);
+  }
+
+  pillStyle(active) {
+    const base = "cursor:pointer;font-family:inherit;padding:0.55rem 1.3rem;border-radius:50px;font-size:0.82rem;letter-spacing:0.03em;transition:all .25s;";
+    return base + (active
+      ? "background:#221a10;color:#f6f1e7;border:1px solid #221a10;"
+      : "background:transparent;color:#6f6557;border:1px solid #e0d4bd;");
+  }
+
+  fmt(n) { return '$' + n.toLocaleString('es-AR'); }
+
+  openModal(p) { this.setState({ modal: p, qty: 1, light: p.luz === 'fria' ? 'Fría' : 'Cálida', pay: 'Efectivo', colorLamp: (p.coloresLampara && p.coloresLampara[0]) || '#FFFFFF', colorBase: (p.coloresBase && p.coloresBase[0]) || '#FFFFFF' }); }
+  closeModal() { this.setState({ modal: null }); }
+  setQty(d) { this.setState((s) => ({ qty: Math.min(20, Math.max(1, s.qty + d)) })); }
+  setLight(v) { this.setState({ light: v }); }
+  setPay(v) { this.setState({ pay: v }); }
+  setColorLamp(v) { this.setState({ colorLamp: v }); }
+  setColorBase(v) { this.setState({ colorBase: v }); }
+  swatchStyle(hex, selected) {
+    return 'width:32px;height:32px;border-radius:50%;cursor:pointer;background:' + hex + ';border:1px solid #cbb98f;transition:transform .15s,box-shadow .15s;' + (selected ? 'box-shadow:0 0 0 2px #fffdf8,0 0 0 4px #221a10;transform:scale(1.06);' : '');
+  }
+
+  toggleStyle(active) {
+    const base = "cursor:pointer;font-family:inherit;flex:1;padding:0.7rem;border-radius:12px;font-size:0.85rem;letter-spacing:0.02em;transition:all .25s;display:flex;align-items:center;justify-content:center;gap:0.45rem;";
+    return base + (active
+      ? "background:#221a10;color:#f6f1e7;border:1px solid #221a10;"
+      : "background:#fff;color:#6f6557;border:1px solid #e6dcc6;");
+  }
+
+  modalData() {
+    const p = this.state.modal;
+    if (!p) return null;
+    const qty = this.state.qty;
+    const ambas = p.luz === 'ambas';
+    const effLight = ambas ? this.state.light : (p.luz === 'fria' ? 'Fría' : 'Cálida');
+    const unit = this.state.pay === 'Efectivo' ? p.cashNum : p.transferNum;
+    const pairs = Math.floor(qty / 2);
+    const discount = pairs * unit * 0.5;
+    const subtotal = qty * unit;
+    const total = subtotal - discount;
+    const specs = [];
+    if (p.alturaCm) specs.push('Altura ' + p.alturaCm + ' cm');
+    if (p.intensidades) specs.push(p.intensidades + (p.intensidades === 1 ? ' intensidad' : ' intensidades'));
+    specs.push(p.conector === 'enchufe' ? 'Enchufe: 3 patas' : 'Enchufe: USB');
+    const lampColors = Array.isArray(p.coloresLampara) ? p.coloresLampara : ['#FFFFFF'];
+    const baseColors = Array.isArray(p.coloresBase) ? p.coloresBase : ['#FFFFFF'];
+    const colorLamp = (this.state.colorLamp && lampColors.indexOf(this.state.colorLamp) !== -1) ? this.state.colorLamp : lampColors[0];
+    const colorBase = (this.state.colorBase && baseColors.indexOf(this.state.colorBase) !== -1) ? this.state.colorBase : baseColors[0];
+    const msg = '¡Hola! Quiero consultar por la lámpara ' + p.name + ' (' + p.kanji + ').\n'
+      + 'Cantidad: ' + qty + '\n'
+      + 'Luz: ' + effLight + '\n'
+      + (lampColors.length ? ('Color lámpara: ' + colorLamp + '\n') : '')
+      + (baseColors.length ? ('Color base: ' + colorBase + '\n') : '')
+      + 'Pago: ' + this.state.pay + '\n'
+      + (discount > 0 ? ('Promo 2ª unidad 50%: -' + this.fmt(discount) + '\n') : '')
+      + 'Total: ' + this.fmt(total) + '\n¿Está disponible?';
+    return {
+      name: p.name, kanji: p.kanji, meaning: p.meaning, photo: p.photo,
+      qty, light: this.state.light, pay: this.state.pay,
+      specsLine: specs.join(' · '),
+      showLightChoice: ambas, showLightFixed: !ambas, lightFixedLabel: effLight,
+      unitFmt: this.fmt(unit),
+      subtotalFmt: this.fmt(subtotal),
+      discountFmt: '– ' + this.fmt(discount),
+      totalFmt: this.fmt(total),
+      hasDiscount: discount > 0,
+      showLampColors: lampColors.length > 0,
+      showBaseColors: baseColors.length > 0,
+      lampColors: lampColors.map((hex) => ({ hex, style: this.swatchStyle(hex, hex === colorLamp), onPick: () => this.setColorLamp(hex) })),
+      baseColors: baseColors.map((hex) => ({ hex, style: this.swatchStyle(hex, hex === colorBase), onPick: () => this.setColorBase(hex) })),
+      colorLampLabel: colorLamp,
+      colorBaseLabel: colorBase,
+      lightWarmStyle: this.toggleStyle(this.state.light === 'Cálida'),
+      lightCoolStyle: this.toggleStyle(this.state.light === 'Fría'),
+      payCashStyle: this.toggleStyle(this.state.pay === 'Efectivo'),
+      payTransStyle: this.toggleStyle(this.state.pay === 'Transferencia'),
+      payMpStyle: this.toggleStyle(this.state.pay === 'Mercado Pago'),
+      wa: 'https://wa.me/5491173748313?text=' + encodeURIComponent(msg),
+      setWarm: () => this.setLight('Cálida'),
+      setCool: () => this.setLight('Fría'),
+      setCash: () => this.setPay('Efectivo'),
+      setTrans: () => this.setPay('Transferencia'),
+      setMp: () => this.setPay('Mercado Pago'),
+      inc: () => this.setQty(1),
+      dec: () => this.setQty(-1),
+    };
+  }
+
+  renderVals() {
+    const f = this.state.filter;
+    const all = this.allProducts;
+    const baseList = f === 'all' ? all : all.filter((p) => p.cashNum >= Number(f));
+    const slide = this.state.slide || {};
+    const list = baseList.map((p) => {
+      const key = p.name + '|' + p.kanji;
+      const n = (p.fotos && p.fotos.length) || 1;
+      let idx = slide[key] || 0;
+      if (idx >= n) idx = 0;
+      const cur = (p.fotos && p.fotos[idx]) || p.photo;
+      const swStyle = (hex) => 'width:12px;height:12px;border-radius:50%;background:' + hex + ';border:1px solid rgba(160,143,110,0.5);box-shadow:0 0 0 1px rgba(255,255,255,0.6) inset';
+      const lampList = Array.isArray(p.coloresLampara) ? p.coloresLampara : ['#FFFFFF'];
+      const baseList = Array.isArray(p.coloresBase) ? p.coloresBase : ['#FFFFFF'];
+      const lampSw = lampList.map((hex) => ({ hex, style: swStyle(hex) }));
+      const baseSw = baseList.map((hex) => ({ hex, style: swStyle(hex) }));
+      return Object.assign({}, p, {
+        photo: cur,
+        lampSwatches: lampSw,
+        baseSwatches: baseSw,
+        showLamp: lampSw.length > 0,
+        showBase: baseSw.length > 0,
+        showColors: lampSw.length > 0 || baseSw.length > 0,
+        hasMultiple: n > 1,
+        counter: (idx + 1) + ' / ' + n,
+        onConsultar: () => this.openModal(Object.assign({}, p, { photo: cur })),
+        onPrev: (e) => { e.stopPropagation(); this.slideBy(key, -1, n); },
+        onNext: (e) => { e.stopPropagation(); this.slideBy(key, 1, n); },
+      });
+    });
+    const mk = (label, val) => ({
+      label, val,
+      style: this.pillStyle(f === val),
+      onClick: () => this.setState({ filter: val }),
+    });
+    const m = this.modalData();
+    return {
+      products: list,
+      isEmpty: baseList.length === 0,
+      pills: [mk('Todas', 'all'), mk('Desde $30.000', '30000'), mk('Desde $40.000', '40000'), mk('Desde $50.000', '50000'), mk('Desde $60.000', '60000'), mk('Desde $100.000', '100000')],
+      count: baseList.length + (baseList.length === 1 ? ' modelo' : ' modelos'),
+      modalOpen: !!m,
+      m: m || {},
+      closeModal: () => this.closeModal(),
+      stop: (e) => e.stopPropagation(),
+    };
+  }
+}
+</script>
+</body>
+</html>

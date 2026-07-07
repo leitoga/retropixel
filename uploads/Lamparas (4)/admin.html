@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<script src="./productos.js"></script>
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  body{background:#ece5d6}
+  ::selection{background:#e7cfa0;color:#221a10}
+  input,textarea,button{font-family:inherit;color:inherit}
+  input:focus,textarea:focus{outline:none;border-color:#a8763a !important}
+  textarea{resize:vertical}
+  .hk-scroll::-webkit-scrollbar{width:10px;height:10px}
+  .hk-scroll::-webkit-scrollbar-thumb{background:#c9bda2;border-radius:8px;border:2px solid #f3ecdd}
+  .hk-scroll::-webkit-scrollbar-track{background:transparent}
+  @media (max-width:820px){ #hk-grid{grid-template-columns:1fr !important} #hk-aside{max-height:42vh} }
+</style>
+</helmet>
+
+<div style="font-family:'DM Sans',sans-serif;color:#221a10;height:100vh;display:flex;flex-direction:column">
+
+  <!-- TOP BAR -->
+  <header style="flex:none;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;background:#221a10;color:#f6f1e7;padding:0.8rem 1.4rem;z-index:30">
+    <div style="display:flex;align-items:baseline;gap:0.6rem">
+      <span style="font-family:'Cormorant Garamond',serif;font-size:1.5rem;line-height:1">光</span>
+      <span style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;letter-spacing:0.18em;line-height:1">HIKARI</span>
+      <span style="font-size:0.68rem;letter-spacing:0.18em;text-transform:uppercase;color:#c69a5b;border-left:1px solid rgba(255,255,255,0.2);padding-left:0.6rem;margin-left:0.2rem">Administrador</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:0.7rem;flex-wrap:wrap">
+      <span style="font-size:0.74rem;color:#cbb98f;min-width:0">{{ statusText }}</span>
+      <button onClick="{{ onExportJs }}" style="border:1px solid rgba(255,255,255,0.28);color:#f6f1e7;background:transparent;padding:0.5rem 0.95rem;border-radius:9px;font-size:0.8rem;cursor:pointer;transition:background .2s" style-hover="background:rgba(255,255,255,0.1)">Descargar productos.js</button>
+      <button onClick="{{ onExportZip }}" style="display:flex;align-items:center;gap:0.45rem;background:#a8763a;color:#fff;border:none;padding:0.55rem 1.05rem;border-radius:9px;font-size:0.8rem;font-weight:500;cursor:pointer;transition:background .2s" style-hover="background:#c69a5b">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>
+        Descargar paquete
+      </button>
+    </div>
+  </header>
+
+  <!-- BODY -->
+  <div id="hk-grid" style="flex:1;min-height:0;display:grid;grid-template-columns:370px 1fr">
+
+    <!-- LEFT: LIST -->
+    <aside id="hk-aside" class="hk-scroll" style="min-height:0;overflow-y:auto;border-right:1px solid #d8cdb6;background:#f3ecdd;padding:1rem 1rem 2rem">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.85rem;position:sticky;top:-1rem;background:#f3ecdd;padding:0.5rem 0;z-index:2">
+        <span style="font-size:0.7rem;letter-spacing:0.16em;text-transform:uppercase;color:#8d8170">Productos · {{ count }}</span>
+        <button onClick="{{ onAdd }}" style="display:flex;align-items:center;gap:0.35rem;background:#221a10;color:#f6f1e7;border:none;padding:0.45rem 0.85rem;border-radius:8px;font-size:0.78rem;cursor:pointer;transition:background .2s" style-hover="background:#a8763a">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+          Nuevo
+        </button>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:0.5rem">
+        <sc-for list="{{ items }}" as="it" hint-placeholder-count="7">
+          <div draggable="true" onDragStart="{{ it.onDragStart }}" onDragOver="{{ it.onDragOver }}" onDrop="{{ it.onDrop }}" onClick="{{ it.onSelect }}" style="{{ it.rowStyle }}">
+            <span style="color:#bcae93;cursor:grab;font-size:0.9rem;line-height:1;letter-spacing:-2px">⠿</span>
+            <div style="{{ it.thumbStyle }}"></div>
+            <div style="flex:1;min-width:0">
+              <div style="display:flex;align-items:baseline;gap:0.4rem">
+                <span style="font-family:'Cormorant Garamond',serif;color:#c69a5b;font-size:0.95rem">{{ it.kanji }}</span>
+                <span style="font-family:'Cormorant Garamond',serif;font-weight:500;font-size:1.12rem;line-height:1.1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ it.name }}</span>
+              </div>
+              <span style="font-size:0.76rem;color:#9a8d77">{{ it.price }} · pos. {{ it.pos }}</span>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:0.15rem;flex:none">
+              <button onClick="{{ it.onUp }}" title="Subir" style="width:24px;height:20px;border:1px solid #ddd2bb;background:#fffdf8;border-radius:6px;cursor:pointer;color:#8d8170;font-size:0.7rem;line-height:1;display:flex;align-items:center;justify-content:center" style-hover="border-color:#a8763a;color:#a8763a">▲</button>
+              <button onClick="{{ it.onDown }}" title="Bajar" style="width:24px;height:20px;border:1px solid #ddd2bb;background:#fffdf8;border-radius:6px;cursor:pointer;color:#8d8170;font-size:0.7rem;line-height:1;display:flex;align-items:center;justify-content:center" style-hover="border-color:#a8763a;color:#a8763a">▼</button>
+            </div>
+            <button onClick="{{ it.onDelete }}" title="Borrar" style="flex:none;width:26px;height:26px;border:1px solid #e6cfc6;background:#fff;border-radius:7px;cursor:pointer;color:#c0796a;font-size:0.95rem;line-height:1;display:flex;align-items:center;justify-content:center" style-hover="background:#c0392b;color:#fff;border-color:#c0392b">×</button>
+          </div>
+        </sc-for>
+      </div>
+
+      <sc-if value="{{ loading }}" hint-placeholder-val="{{ false }}">
+        <p style="text-align:center;color:#a89c86;font-size:0.82rem;padding:2rem 0">Cargando productos…</p>
+      </sc-if>
+    </aside>
+
+    <!-- RIGHT: EDITOR -->
+    <main class="hk-scroll" style="min-height:0;overflow-y:auto;padding:1.6rem 1.9rem 3rem">
+      <sc-if value="{{ hasSelection }}" hint-placeholder-val="{{ true }}">
+        <div style="max-width:740px;margin:0 auto">
+          <h2 style="font-family:'Cormorant Garamond',serif;font-weight:500;font-size:1.5rem;margin-bottom:0.25rem">Editar producto</h2>
+          <p style="font-size:0.8rem;color:#8d8170;margin-bottom:1.6rem">Los cambios se guardan automáticamente en este navegador.</p>
+
+          <!-- FOTO -->
+          <div style="background:#fffdf8;border:1px solid #ece2cd;border-radius:16px;padding:1.1rem;margin-bottom:1.4rem">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:0.6rem;flex-wrap:wrap;margin-bottom:0.85rem">
+              <span style="font-size:0.68rem;text-transform:uppercase;letter-spacing:0.14em;color:#8d8170">Fotos del producto · {{ fotoCount }}/10</span>
+              <span style="font-size:0.72rem;color:#a89c86">La 1ª es la principal · ‹ › para ordenar</span>
+            </div>
+
+            <sc-if value="{{ hasFotos }}" hint-placeholder-val="{{ true }}">
+              <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(104px,1fr));gap:0.6rem;margin-bottom:1rem">
+                <sc-for list="{{ fotos }}" as="ph" hint-placeholder-count="3">
+                  <div style="{{ ph.cardStyle }}">
+                    <sc-if value="{{ ph.isPrimary }}" hint-placeholder-val="{{ false }}">
+                      <span style="position:absolute;top:0.3rem;left:0.3rem;z-index:2;background:#a8763a;color:#fff;font-size:0.58rem;letter-spacing:0.06em;text-transform:uppercase;padding:0.13rem 0.42rem;border-radius:50px">Principal</span>
+                    </sc-if>
+                    <sc-if value="{{ ph.isNew }}" hint-placeholder-val="{{ false }}">
+                      <span style="position:absolute;top:0.3rem;right:0.3rem;z-index:2;background:rgba(34,26,16,0.82);color:#d6bd8d;font-size:0.56rem;letter-spacing:0.04em;padding:0.13rem 0.36rem;border-radius:50px">nueva</span>
+                    </sc-if>
+                    <div style="position:absolute;left:0;right:0;bottom:0;z-index:2;display:flex;align-items:center;justify-content:space-between;gap:0.25rem;padding:0.32rem;background:linear-gradient(transparent,rgba(20,13,6,0.7))">
+                      <button onClick="{{ ph.onLeft }}" title="Mover a la izquierda" style="width:25px;height:25px;border:none;border-radius:7px;background:rgba(255,255,255,0.92);color:#3a2f20;cursor:pointer;font-size:0.9rem;line-height:1;display:flex;align-items:center;justify-content:center">‹</button>
+                      <button onClick="{{ ph.onRemove }}" title="Quitar foto" style="width:25px;height:25px;border:none;border-radius:7px;background:rgba(192,57,43,0.94);color:#fff;cursor:pointer;font-size:1rem;line-height:1;display:flex;align-items:center;justify-content:center">×</button>
+                      <button onClick="{{ ph.onRight }}" title="Mover a la derecha" style="width:25px;height:25px;border:none;border-radius:7px;background:rgba(255,255,255,0.92);color:#3a2f20;cursor:pointer;font-size:0.9rem;line-height:1;display:flex;align-items:center;justify-content:center">›</button>
+                    </div>
+                  </div>
+                </sc-for>
+              </div>
+            </sc-if>
+            <sc-if value="{{ noFotos }}" hint-placeholder-val="{{ false }}">
+              <p style="font-size:0.82rem;color:#a89c86;padding:0.6rem 0 1rem">Todavía no hay fotos. Subí una (o varias) o elegí de las existentes.</p>
+            </sc-if>
+
+            <div style="display:flex;gap:0.5rem;flex-wrap:wrap;align-items:center">
+              <label style="{{ uploadBtnStyle }}">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 16V4M7 9l5-5 5 5M5 20h14"/></svg>
+                Subir fotos
+                <input type="file" accept="image/*" multiple onChange="{{ onUpload }}" style="display:none"/>
+              </label>
+              <button onClick="{{ onToggleGallery }}" style="{{ galleryBtnStyle }}">Elegir de las existentes</button>
+              <span style="font-size:0.72rem;color:#a89c86">{{ fotoHint }}</span>
+            </div>
+
+            <sc-if value="{{ galleryOpen }}" hint-placeholder-val="{{ false }}">
+              <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(56px,1fr));gap:0.45rem;margin-top:0.85rem;padding:0.7rem;background:#f6f1e7;border:1px solid #e6dcc6;border-radius:12px;max-height:230px;overflow-y:auto" class="hk-scroll">
+                <sc-for list="{{ gallery }}" as="g" hint-placeholder-count="12">
+                  <div onClick="{{ g.onPick }}" style="{{ g.style }}"></div>
+                </sc-for>
+              </div>
+            </sc-if>
+          </div>
+
+          <!-- CAMPOS -->
+          <div style="background:#fffdf8;border:1px solid #ece2cd;border-radius:16px;padding:1.4rem">
+            <div style="display:grid;grid-template-columns:1fr 130px;gap:1rem;margin-bottom:1.1rem">
+              <label style="display:block">
+                <span style="font-size:0.68rem;text-transform:uppercase;letter-spacing:0.14em;color:#8d8170;display:block;margin-bottom:0.35rem">Nombre</span>
+                <input value="{{ f.nombre }}" onChange="{{ on.nombre }}" placeholder="Ej. Nami" style="width:100%;padding:0.6rem 0.75rem;border:1px solid #d8cdb6;border-radius:10px;background:#fff;font-size:0.92rem"/>
+              </label>
+              <label style="display:block">
+                <span style="font-size:0.68rem;text-transform:uppercase;letter-spacing:0.14em;color:#8d8170;display:block;margin-bottom:0.35rem">Kanji</span>
+                <input value="{{ f.kanji }}" onChange="{{ on.kanji }}" placeholder="波" style="width:100%;padding:0.6rem 0.75rem;border:1px solid #d8cdb6;border-radius:10px;background:#fff;font-size:1.1rem;font-family:'Cormorant Garamond',serif;text-align:center"/>
+              </label>
+            </div>
+
+            <label style="display:block;margin-bottom:1.1rem">
+              <span style="font-size:0.68rem;text-transform:uppercase;letter-spacing:0.14em;color:#8d8170;display:block;margin-bottom:0.35rem">Significado</span>
+              <input value="{{ f.significado }}" onChange="{{ on.significado }}" placeholder="Ej. Ola" style="width:100%;padding:0.6rem 0.75rem;border:1px solid #d8cdb6;border-radius:10px;background:#fff;font-size:0.92rem"/>
+            </label>
+
+            <label style="display:block;margin-bottom:1.3rem">
+              <span style="font-size:0.68rem;text-transform:uppercase;letter-spacing:0.14em;color:#8d8170;display:block;margin-bottom:0.35rem">Descripción</span>
+              <textarea value="{{ f.descripcion }}" onChange="{{ on.descripcion }}" rows="2" placeholder="Texto descriptivo del producto" style="width:100%;padding:0.6rem 0.75rem;border:1px solid #d8cdb6;border-radius:10px;background:#fff;font-size:0.92rem;line-height:1.5;min-height:64px"></textarea>
+            </label>
+
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.3rem">
+              <label style="display:block">
+                <span style="font-size:0.68rem;text-transform:uppercase;letter-spacing:0.14em;color:#8d8170;display:block;margin-bottom:0.35rem">Precio efectivo ($)</span>
+                <input type="number" value="{{ f.precioEfectivo }}" onChange="{{ on.precioEfectivo }}" style="width:100%;padding:0.6rem 0.75rem;border:1px solid #d8cdb6;border-radius:10px;background:#fff;font-size:0.92rem"/>
+              </label>
+              <label style="display:block">
+                <span style="font-size:0.68rem;text-transform:uppercase;letter-spacing:0.14em;color:#8d8170;display:block;margin-bottom:0.35rem">Precio transferencia ($)</span>
+                <input type="number" value="{{ f.precioTransferencia }}" onChange="{{ on.precioTransferencia }}" style="width:100%;padding:0.6rem 0.75rem;border:1px solid #d8cdb6;border-radius:10px;background:#fff;font-size:0.92rem"/>
+              </label>
+            </div>
+
+            <div style="margin-bottom:1.3rem">
+              <span style="font-size:0.68rem;text-transform:uppercase;letter-spacing:0.14em;color:#8d8170;display:block;margin-bottom:0.45rem">Temperatura de luz</span>
+              <div style="display:flex;gap:0.55rem">
+                <button onClick="{{ setLuzAmbas }}" style="{{ luzAmbas }}">Cálida o fría</button>
+                <button onClick="{{ setLuzCalida }}" style="{{ luzCalida }}">Solo cálida</button>
+                <button onClick="{{ setLuzFria }}" style="{{ luzFria }}">Solo fría</button>
+              </div>
+            </div>
+
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.3rem">
+              <label style="display:block">
+                <span style="font-size:0.68rem;text-transform:uppercase;letter-spacing:0.14em;color:#8d8170;display:block;margin-bottom:0.35rem">Intensidades</span>
+                <input type="number" value="{{ f.intensidades }}" onChange="{{ on.intensidades }}" style="width:100%;padding:0.6rem 0.75rem;border:1px solid #d8cdb6;border-radius:10px;background:#fff;font-size:0.92rem"/>
+              </label>
+              <label style="display:block">
+                <span style="font-size:0.68rem;text-transform:uppercase;letter-spacing:0.14em;color:#8d8170;display:block;margin-bottom:0.35rem">Altura (cm)</span>
+                <input type="number" value="{{ f.alturaCm }}" onChange="{{ on.alturaCm }}" style="width:100%;padding:0.6rem 0.75rem;border:1px solid #d8cdb6;border-radius:10px;background:#fff;font-size:0.92rem"/>
+              </label>
+            </div>
+
+            <div>
+              <span style="font-size:0.68rem;text-transform:uppercase;letter-spacing:0.14em;color:#8d8170;display:block;margin-bottom:0.45rem">Conector</span>
+              <div style="display:flex;gap:0.55rem">
+                <button onClick="{{ setConUsb }}" style="{{ conUsb }}">USB</button>
+                <button onClick="{{ setConEnchufe }}" style="{{ conEnchufe }}">Enchufe 3 patas</button>
+              </div>
+            </div>
+          </div>
+
+          <div style="background:#fffdf8;border:1px solid #ece2cd;border-radius:16px;padding:1.4rem;margin-top:1.4rem">
+            <span style="font-size:0.68rem;text-transform:uppercase;letter-spacing:0.14em;color:#8d8170;display:block;margin-bottom:0.25rem">Colores disponibles</span>
+            <p style="font-size:0.76rem;color:#a89c86;margin-bottom:1.2rem;line-height:1.5">El cliente elige un color de lámpara y uno de base. Cargalos en formato <b style="font-family:monospace;color:#6f6557">#RRGGBB</b> (hasta 10 de cada uno).</p>
+
+            <div style="margin-bottom:1.4rem">
+              <span style="font-size:0.7rem;color:#6f6557;font-weight:500;display:block;margin-bottom:0.55rem">Lámpara · {{ lampCount }}/10</span>
+              <div style="display:flex;flex-wrap:wrap;gap:0.6rem;align-items:center">
+                <sc-for list="{{ coloresLamp }}" as="c" hint-placeholder-count="1">
+                  <div style="position:relative">
+                    <div style="{{ c.style }}" title="{{ c.hex }}"></div>
+                    <button onClick="{{ c.onRemove }}" title="Quitar color" style="position:absolute;top:-5px;right:-5px;width:18px;height:18px;border-radius:50%;border:1.5px solid #fffdf8;background:#c0392b;color:#fff;font-size:0.68rem;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0">×</button>
+                  </div>
+                </sc-for>
+                <sc-if value="{{ lampCanAdd }}" hint-placeholder-val="{{ true }}">
+                  <div style="display:flex;align-items:center;gap:0.45rem;padding-left:0.3rem;border-left:1px solid #ece2cd;margin-left:0.2rem">
+                    <span style="{{ lampPreview }}"></span>
+                    <input value="{{ draftLamp }}" onChange="{{ onDraftLamp }}" onKeyDown="{{ onAddLampKey }}" placeholder="#000000" maxlength="7" style="width:96px;padding:0.46rem 0.55rem;border:1px solid #d8cdb6;border-radius:9px;background:#fff;font-size:0.85rem;font-family:monospace"/>
+                    <button onClick="{{ onAddLamp }}" style="background:#221a10;color:#f6f1e7;border:none;padding:0.46rem 0.85rem;border-radius:9px;font-size:0.8rem;cursor:pointer;transition:background .2s" style-hover="background:#a8763a">Agregar</button>
+                  </div>
+                </sc-if>
+              </div>
+            </div>
+
+            <div>
+              <span style="font-size:0.7rem;color:#6f6557;font-weight:500;display:block;margin-bottom:0.55rem">Base · {{ baseCount }}/10</span>
+              <div style="display:flex;flex-wrap:wrap;gap:0.6rem;align-items:center">
+                <sc-for list="{{ coloresBase }}" as="c" hint-placeholder-count="1">
+                  <div style="position:relative">
+                    <div style="{{ c.style }}" title="{{ c.hex }}"></div>
+                    <button onClick="{{ c.onRemove }}" title="Quitar color" style="position:absolute;top:-5px;right:-5px;width:18px;height:18px;border-radius:50%;border:1.5px solid #fffdf8;background:#c0392b;color:#fff;font-size:0.68rem;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0">×</button>
+                  </div>
+                </sc-for>
+                <sc-if value="{{ baseCanAdd }}" hint-placeholder-val="{{ true }}">
+                  <div style="display:flex;align-items:center;gap:0.45rem;padding-left:0.3rem;border-left:1px solid #ece2cd;margin-left:0.2rem">
+                    <span style="{{ basePreview }}"></span>
+                    <input value="{{ draftBase }}" onChange="{{ onDraftBase }}" onKeyDown="{{ onAddBaseKey }}" placeholder="#000000" maxlength="7" style="width:96px;padding:0.46rem 0.55rem;border:1px solid #d8cdb6;border-radius:9px;background:#fff;font-size:0.85rem;font-family:monospace"/>
+                    <button onClick="{{ onAddBase }}" style="background:#221a10;color:#f6f1e7;border:none;padding:0.46rem 0.85rem;border-radius:9px;font-size:0.8rem;cursor:pointer;transition:background .2s" style-hover="background:#a8763a">Agregar</button>
+                  </div>
+                </sc-if>
+              </div>
+            </div>
+          </div>
+
+          <div style="display:flex;justify-content:flex-end;margin-top:1.2rem">
+            <button onClick="{{ onDeleteCurrent }}" style="display:flex;align-items:center;gap:0.4rem;background:transparent;border:1px solid #e0c4bc;color:#c0796a;padding:0.55rem 1rem;border-radius:9px;font-size:0.82rem;cursor:pointer;transition:all .2s" style-hover="background:#c0392b;color:#fff;border-color:#c0392b">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14"/></svg>
+              Borrar este producto
+            </button>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ noSelection }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;color:#a89c86;text-align:center;gap:0.6rem">
+          <span style="font-family:'Cormorant Garamond',serif;font-size:3rem;color:#d8c6a4">光</span>
+          <p style="font-size:0.95rem">Seleccioná un producto de la lista<br/>o creá uno nuevo para empezar.</p>
+        </div>
+      </sc-if>
+    </main>
+  </div>
+
+  <!-- FOOTER -->
+  <footer style="flex:none;border-top:1px solid #d8cdb6;background:#f3ecdd;padding:0.7rem 1.4rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap">
+    <span style="font-size:0.76rem;color:#6f6557;line-height:1.5">Para publicar: tocá <b style="color:#a8763a">Descargar paquete</b>, descomprimí el .zip y subí <b>todo</b> a tu repositorio de GitHub (reemplazando los archivos). Los cambios se guardan solos en este navegador.</span>
+    <button onClick="{{ onReset }}" style="flex:none;background:transparent;border:1px solid #cdbf9f;color:#8d8170;padding:0.45rem 0.9rem;border-radius:8px;font-size:0.76rem;cursor:pointer;transition:all .2s" style-hover="border-color:#a8763a;color:#a8763a">Restablecer desde productos.js</button>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { products: [], sel: 0, galleryOpen: false, status: '', ready: false, draftLamp: '', draftBase: '' };
+
+  imgUrls = {};
+  newFotos = new Set();
+  dragIndex = null;
+  EXISTING = Array.from({ length: 22 }, (_, i) => 'fotos/Lampara-' + String(i + 1).padStart(2, '0') + '.jpg');
+  KEY = 'hikari_admin_v1';
+
+  componentDidMount() {
+    this.openDB().then(() => this.loadImages()).then(() => this.boot());
+  }
+
+  // ---------- IndexedDB (fotos nuevas) ----------
+  openDB() {
+    return new Promise((res) => {
+      try {
+        const r = indexedDB.open('hikari_admin', 1);
+        r.onupgradeneeded = () => { const db = r.result; if (!db.objectStoreNames.contains('images')) db.createObjectStore('images'); };
+        r.onsuccess = () => { this.db = r.result; res(); };
+        r.onerror = () => res();
+      } catch (e) { res(); }
+    });
+  }
+  putImage(name, blob) { return new Promise((res) => { if (!this.db) return res(); const tx = this.db.transaction('images', 'readwrite'); tx.objectStore('images').put(blob, name); tx.oncomplete = () => res(); tx.onerror = () => res(); }); }
+  getImage(name) { return new Promise((res) => { if (!this.db) return res(null); const tx = this.db.transaction('images', 'readonly'); const rq = tx.objectStore('images').get(name); rq.onsuccess = () => res(rq.result || null); rq.onerror = () => res(null); }); }
+  loadImages() {
+    return new Promise((res) => {
+      if (!this.db) return res();
+      const tx = this.db.transaction('images', 'readonly');
+      const rq = tx.objectStore('images').openCursor();
+      rq.onsuccess = () => { const c = rq.result; if (c) { try { this.imgUrls[c.key] = URL.createObjectURL(c.value); } catch (e) {} c.continue(); } else res(); };
+      rq.onerror = () => res();
+    });
+  }
+
+  // ---------- carga inicial ----------
+  normalizeProducts(arr) {
+    return (arr || []).map((p) => {
+      const q = Object.assign({}, p);
+      let fotos = Array.isArray(q.fotos) ? q.fotos.filter(Boolean) : [];
+      if (!fotos.length && q.foto) fotos = [q.foto];
+      q.fotos = fotos.slice(0, 10);
+      q.foto = q.fotos[0] || '';
+      q.coloresLampara = Array.isArray(q.coloresLampara) ? q.coloresLampara.slice(0, 10) : ['#FFFFFF'];
+      q.coloresBase = Array.isArray(q.coloresBase) ? q.coloresBase.slice(0, 10) : ['#FFFFFF'];
+      return q;
+    });
+  }
+  boot() {
+    let saved = null;
+    try { saved = JSON.parse(localStorage.getItem(this.KEY) || 'null'); } catch (e) {}
+    if (saved && Array.isArray(saved.products) && saved.products.length) {
+      this.newFotos = new Set(saved.newFotos || []);
+      this.setState({ products: this.normalizeProducts(saved.products), sel: 0, ready: true });
+    } else {
+      this.seedFromGlobal(0);
+    }
+  }
+  seedFromGlobal(tries) {
+    const g = window.HIKARI_PRODUCTOS;
+    if (Array.isArray(g) && g.length) {
+      const products = this.normalizeProducts(g.map((p) => Object.assign({}, p)));
+      this.setState({ products, sel: 0, ready: true }, () => this.persist());
+    } else if (tries < 80) {
+      setTimeout(() => this.seedFromGlobal(tries + 1), 50);
+    } else {
+      this.setState({ products: [], sel: null, ready: true });
+    }
+  }
+
+  persist() { try { localStorage.setItem(this.KEY, JSON.stringify({ products: this.state.products, newFotos: [...this.newFotos] })); } catch (e) {} }
+  commit(products, extra) { this.setState(Object.assign({ products }, extra || {}), () => this.persist()); }
+  resolve(foto) { if (!foto) return ''; return this.imgUrls[foto] || foto; }
+
+  flash(msg) { this.setState({ status: msg || 'Guardado ✓' }); clearTimeout(this._ft); this._ft = setTimeout(() => this.setState({ status: '' }), 1400); }
+
+  updateField(k, v) {
+    if (this.state.sel == null) return;
+    const products = this.state.products.slice();
+    const p = Object.assign({}, products[this.state.sel]);
+    p[k] = v;
+    products[this.state.sel] = p;
+    this.commit(products);
+    this.flash('Guardado ✓');
+  }
+
+  nextFotoName() {
+    let max = 0;
+    const scan = (s) => { const m = /Lampara-(\d+)\.jpg/i.exec(s || ''); if (m) max = Math.max(max, parseInt(m[1], 10)); };
+    this.state.products.forEach((p) => { scan(p.foto); (p.fotos || []).forEach(scan); });
+    this.newFotos.forEach(scan);
+    this.EXISTING.forEach(scan);
+    return 'fotos/Lampara-' + String(max + 1).padStart(2, '0') + '.jpg';
+  }
+  curFotos() {
+    const p = (this.state.sel != null) ? this.state.products[this.state.sel] : null;
+    return (p && Array.isArray(p.fotos)) ? p.fotos.slice() : (p && p.foto ? [p.foto] : []);
+  }
+  setFotos(arr) {
+    if (this.state.sel == null) return;
+    const products = this.state.products.slice();
+    const p = Object.assign({}, products[this.state.sel]);
+    p.fotos = arr.slice(0, 10);
+    p.foto = p.fotos[0] || '';
+    products[this.state.sel] = p;
+    this.commit(products);
+  }
+  async onUpload(e) {
+    const files = e.target.files ? [...e.target.files] : [];
+    if (!files.length) return;
+    const cur = this.curFotos();
+    let added = 0;
+    for (const file of files) {
+      if (cur.length >= 10) break;
+      const name = this.nextFotoName();
+      await this.putImage(name, file);
+      try { this.imgUrls[name] = URL.createObjectURL(file); } catch (er) {}
+      this.newFotos.add(name);
+      cur.push(name);
+      added++;
+    }
+    e.target.value = '';
+    this.setFotos(cur);
+    this.flash(added === 0 ? 'Máximo 10 fotos' : (added > 1 ? (added + ' fotos cargadas ✓') : 'Foto cargada ✓'));
+  }
+  pickFoto(path) {
+    const cur = this.curFotos();
+    if (cur.includes(path)) { this.flash('Esa foto ya está'); return; }
+    if (cur.length >= 10) { this.flash('Máximo 10 fotos'); return; }
+    cur.push(path);
+    this.setFotos(cur);
+    this.flash('Foto agregada ✓');
+  }
+  removeFoto(i) {
+    const cur = this.curFotos();
+    if (i < 0 || i >= cur.length) return;
+    cur.splice(i, 1);
+    this.setFotos(cur);
+    this.flash('Foto quitada');
+  }
+  moveFoto(i, dir) {
+    const cur = this.curFotos();
+    const to = i + dir;
+    if (to < 0 || to >= cur.length) return;
+    const [it] = cur.splice(i, 1);
+    cur.splice(to, 0, it);
+    this.setFotos(cur);
+  }
+
+  addColor(which, raw) {
+    if (this.state.sel == null) return;
+    let hex = (raw || '').trim();
+    if (hex && hex[0] !== '#') hex = '#' + hex;
+    const m = /^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/.exec(hex);
+    if (!m) { this.flash('Color inválido — usá #RRGGBB'); return; }
+    if (m[1].length === 3) hex = '#' + m[1].split('').map((c) => c + c).join('');
+    hex = hex.toUpperCase();
+    const products = this.state.products.slice();
+    const p = Object.assign({}, products[this.state.sel]);
+    const arr = Array.isArray(p[which]) ? p[which].slice() : [];
+    if (arr.length >= 10) { this.flash('Máximo 10 colores'); return; }
+    if (arr.includes(hex)) { this.flash('Ese color ya está'); return; }
+    arr.push(hex);
+    p[which] = arr;
+    products[this.state.sel] = p;
+    const clear = which === 'coloresLampara' ? { draftLamp: '' } : { draftBase: '' };
+    this.setState(Object.assign({ products }, clear), () => this.persist());
+    this.flash('Color agregado ✓');
+  }
+  removeColor(which, i) {
+    if (this.state.sel == null) return;
+    const products = this.state.products.slice();
+    const p = Object.assign({}, products[this.state.sel]);
+    const arr = Array.isArray(p[which]) ? p[which].slice() : [];
+    if (i < 0 || i >= arr.length) return;
+    arr.splice(i, 1);
+    p[which] = arr;
+    products[this.state.sel] = p;
+    this.commit(products);
+    this.flash('Color quitado');
+  }
+
+  addProduct() {
+    const p = { nombre: 'Nueva lámpara', kanji: '', significado: '', descripcion: '', precioEfectivo: 30000, precioTransferencia: 35000, foto: '', fotos: [], luz: 'ambas', intensidades: 3, conector: 'usb', alturaCm: 20, coloresLampara: ['#FFFFFF'], coloresBase: ['#FFFFFF'] };
+    const products = this.state.products.concat([p]);
+    this.commit(products, { sel: products.length - 1, galleryOpen: false });
+    this.flash('Producto creado ✓');
+  }
+  deleteProduct(i) {
+    const products = this.state.products.slice();
+    products.splice(i, 1);
+    let sel = this.state.sel;
+    if (products.length === 0) sel = null;
+    else if (sel >= products.length) sel = products.length - 1;
+    this.commit(products, { sel });
+    this.flash('Producto borrado');
+  }
+  move(from, to) {
+    if (to < 0 || to >= this.state.products.length) return;
+    const products = this.state.products.slice();
+    const [it] = products.splice(from, 1);
+    products.splice(to, 0, it);
+    let sel = this.state.sel;
+    if (sel === from) sel = to;
+    else if (from < sel && to >= sel) sel--;
+    else if (from > sel && to <= sel) sel++;
+    this.commit(products, { sel });
+  }
+
+  reset() {
+    if (!confirm('¿Restablecer todos los productos a la versión original de productos.js? Se perderán los cambios que no hayas exportado.')) return;
+    this.newFotos = new Set();
+    try { localStorage.removeItem(this.KEY); } catch (e) {}
+    this.seedFromGlobal(0);
+    this.flash('Restablecido');
+  }
+
+  fmt(n) { return '$' + Number(n || 0).toLocaleString('es-AR'); }
+
+  // ---------- exportación ----------
+  serialize() {
+    const esc = (s) => JSON.stringify(String(s == null ? '' : s));
+    const header = '// ============================================================\n'
+      + '//  HIKARI · Base de datos de productos\n'
+      + '//  Generado por el Administrador. Subí este archivo a GitHub.\n'
+      + '// ============================================================\n';
+    const rows = this.state.products.map((p) => {
+      const fotosArr = (Array.isArray(p.fotos) && p.fotos.length ? p.fotos : (p.foto ? [p.foto] : [])).filter(Boolean);
+      return '  { nombre:' + esc(p.nombre) + ', kanji:' + esc(p.kanji) + ', significado:' + esc(p.significado)
+      + ', descripcion:' + esc(p.descripcion) + ', precioEfectivo:' + (Number(p.precioEfectivo) || 0)
+      + ', precioTransferencia:' + (Number(p.precioTransferencia) || 0) + ', foto:' + esc(fotosArr[0] || '')
+      + ', fotos:[' + fotosArr.map(esc).join(', ') + ']'
+      + ', luz:' + esc(p.luz || 'ambas') + ', intensidades:' + (Number(p.intensidades) || 0)
+      + ', conector:' + esc(p.conector || 'usb') + ', alturaCm:' + (Number(p.alturaCm) || 0)
+      + ', coloresLampara:[' + ((Array.isArray(p.coloresLampara) ? p.coloresLampara : ['#FFFFFF']).map(esc).join(', ')) + ']'
+      + ', coloresBase:[' + ((Array.isArray(p.coloresBase) ? p.coloresBase : ['#FFFFFF']).map(esc).join(', ')) + ']'
+      + ' },';
+    }).join('\n');
+    return header + '\nwindow.HIKARI_PRODUCTOS = [\n' + rows + '\n];\n\ntry { window.dispatchEvent(new Event(\'hikari-productos\')); } catch (e) {}\n';
+  }
+  download(blob, filename) {
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1500);
+  }
+  exportJs() {
+    this.download(new Blob([this.serialize()], { type: 'text/javascript' }), 'productos.js');
+    this.flash('productos.js descargado ✓');
+  }
+  async exportZip() {
+    this.setState({ status: 'Armando paquete…' });
+    try {
+      const enc = new TextEncoder();
+      const files = [];
+      files.push({ name: 'productos.js', data: enc.encode(this.serialize()) });
+      const grab = async (p) => { try { const r = await fetch(p); return r.ok ? await r.text() : ''; } catch (e) { return ''; } };
+      const grabFirst = async (paths) => { for (const p of paths) { const t = await grab(p); if (t) return t; } return ''; };
+      const idx = await grabFirst(['index.html', 'Hikari Lamparas.dc.html', 'site/index.html']); if (idx) files.push({ name: 'index.html', data: enc.encode(idx) });
+      const adm = await grabFirst(['admin.html', 'Admin Hikari.dc.html']); if (adm) files.push({ name: 'admin.html', data: enc.encode(adm) });
+      const sup = await grab('support.js'); if (sup) files.push({ name: 'support.js', data: enc.encode(sup) });
+      const rdm = await grabFirst(['README.md', 'site/README.md']); if (rdm) files.push({ name: 'README.md', data: enc.encode(rdm) });
+      const fotos = [];
+      this.state.products.forEach((p) => {
+        const arr = (Array.isArray(p.fotos) && p.fotos.length) ? p.fotos : (p.foto ? [p.foto] : []);
+        arr.forEach((f) => { if (f && !fotos.includes(f)) fotos.push(f); });
+      });
+      for (const f of fotos) {
+        let blob = null;
+        if (this.newFotos.has(f)) blob = await this.getImage(f);
+        else { try { const r = await fetch(f); if (r.ok) blob = await r.blob(); } catch (e) {} }
+        if (blob) files.push({ name: f, data: new Uint8Array(await blob.arrayBuffer()) });
+      }
+      const zip = this.makeZip(files);
+      this.download(zip, 'hikari-sitio.zip');
+      this.flash('Paquete .zip descargado ✓ (' + files.length + ' archivos)');
+    } catch (e) {
+      this.setState({ status: 'Error al armar el paquete: ' + e.message });
+    }
+  }
+  crc32(bytes) {
+    let t = this._crct;
+    if (!t) { t = []; for (let n = 0; n < 256; n++) { let c = n; for (let k = 0; k < 8; k++) c = (c & 1) ? (0xEDB88320 ^ (c >>> 1)) : (c >>> 1); t[n] = c >>> 0; } this._crct = t; }
+    let crc = 0xFFFFFFFF;
+    for (let i = 0; i < bytes.length; i++) crc = (crc >>> 8) ^ t[(crc ^ bytes[i]) & 0xFF];
+    return (crc ^ 0xFFFFFFFF) >>> 0;
+  }
+  makeZip(files) {
+    const enc = new TextEncoder();
+    const u16 = (n) => [n & 0xFF, (n >> 8) & 0xFF];
+    const u32 = (n) => [n & 0xFF, (n >> 8) & 0xFF, (n >> 16) & 0xFF, (n >> 24) & 0xFF];
+    const chunks = []; const central = []; let offset = 0;
+    for (const f of files) {
+      const nameB = enc.encode(f.name);
+      const data = f.data;
+      const crc = this.crc32(data);
+      const local = [].concat(u32(0x04034b50), u16(20), u16(0x0800), u16(0), u16(0), u16(0), u32(crc), u32(data.length), u32(data.length), u16(nameB.length), u16(0));
+      chunks.push(new Uint8Array(local), nameB, data);
+      const cen = [].concat(u32(0x02014b50), u16(20), u16(20), u16(0x0800), u16(0), u16(0), u16(0), u32(crc), u32(data.length), u32(data.length), u16(nameB.length), u16(0), u16(0), u16(0), u16(0), u32(0), u32(offset));
+      central.push(new Uint8Array(cen), nameB);
+      offset += local.length + nameB.length + data.length;
+    }
+    let cenSize = 0; central.forEach((c) => cenSize += c.length);
+    const end = new Uint8Array([].concat(u32(0x06054b50), u16(0), u16(0), u16(files.length), u16(files.length), u32(cenSize), u32(offset), u16(0)));
+    return new Blob([...chunks, ...central, end], { type: 'application/zip' });
+  }
+
+  // ---------- render ----------
+  renderVals() {
+    const products = this.state.products;
+    const sel = this.state.sel;
+    const items = products.map((p, i) => ({
+      name: p.nombre || '(sin nombre)',
+      kanji: p.kanji || '',
+      price: this.fmt(p.precioEfectivo),
+      pos: i + 1,
+      thumbStyle: 'flex:none;width:50px;height:50px;border-radius:10px;background:#1d1610 center/cover no-repeat;' + (this.resolve(p.foto) ? ('background-image:url("' + this.resolve(p.foto) + '");') : ''),
+      rowStyle: 'display:flex;align-items:center;gap:0.55rem;padding:0.5rem 0.55rem;border-radius:12px;cursor:pointer;transition:border-color .2s,background .2s;border:1px solid ' + (i === sel ? '#a8763a' : '#e2d8c2') + ';background:' + (i === sel ? '#fffdf8' : '#faf5ea'),
+      onSelect: () => this.setState({ sel: i, galleryOpen: false }),
+      onUp: (e) => { e.stopPropagation(); this.move(i, i - 1); },
+      onDown: (e) => { e.stopPropagation(); this.move(i, i + 1); },
+      onDelete: (e) => { e.stopPropagation(); if (confirm('¿Borrar "' + (p.nombre || '') + '"?')) this.deleteProduct(i); },
+      onDragStart: () => { this.dragIndex = i; },
+      onDragOver: (e) => { e.preventDefault(); },
+      onDrop: (e) => { e.preventDefault(); if (this.dragIndex != null && this.dragIndex !== i) this.move(this.dragIndex, i); this.dragIndex = null; },
+    }));
+
+    const p = (sel != null && products[sel]) ? products[sel] : null;
+    const seg = (active) => 'flex:1;cursor:pointer;padding:0.6rem 0.4rem;border-radius:10px;font-size:0.83rem;transition:all .2s;border:1px solid ' + (active ? '#221a10' : '#d8cdb6') + ';background:' + (active ? '#221a10' : '#fff') + ';color:' + (active ? '#f6f1e7' : '#6f6557');
+
+    const curFotosArr = (p && Array.isArray(p.fotos)) ? p.fotos : (p && p.foto ? [p.foto] : []);
+    const gallery = this.EXISTING.map((path) => ({
+      onPick: () => this.pickFoto(path),
+      style: 'aspect-ratio:1;border-radius:8px;cursor:pointer;background:#1d1610 center/cover no-repeat;background-image:url("' + path + '");border:2px solid ' + (curFotosArr.includes(path) ? '#a8763a' : 'rgba(0,0,0,0)'),
+    }));
+    const fotosUI = curFotosArr.map((path, i) => ({
+      isPrimary: i === 0,
+      isNew: this.newFotos.has(path),
+      cardStyle: 'position:relative;aspect-ratio:1;border-radius:12px;overflow:hidden;background:#1d1610 center/cover no-repeat;border:1px solid ' + (i === 0 ? '#a8763a' : '#d8cdb6') + ';' + (this.resolve(path) ? ('background-image:url("' + this.resolve(path) + '");') : ''),
+      onLeft: () => this.moveFoto(i, -1),
+      onRight: () => this.moveFoto(i, 1),
+      onRemove: () => this.removeFoto(i),
+    }));
+    const lampArr = (p && Array.isArray(p.coloresLampara)) ? p.coloresLampara : (p ? ['#FFFFFF'] : []);
+    const baseArr = (p && Array.isArray(p.coloresBase)) ? p.coloresBase : (p ? ['#FFFFFF'] : []);
+    const swatch = (hex) => 'width:34px;height:34px;border-radius:50%;background:' + hex + ';border:1px solid #cbb98f;box-shadow:0 1px 2px rgba(0,0,0,0.12)';
+    const previewOf = (raw) => { let h = (raw || '').trim(); if (h && h[0] !== '#') h = '#' + h; const ok = /^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/.test(h); return 'display:inline-block;flex:none;width:24px;height:24px;border-radius:50%;border:1px solid #cbb98f;background:' + (ok ? h : '#ece5d6'); };
+    const coloresLamp = lampArr.map((hex, i) => ({ hex, style: swatch(hex), onRemove: () => this.removeColor('coloresLampara', i) }));
+    const coloresBase = baseArr.map((hex, i) => ({ hex, style: swatch(hex), onRemove: () => this.removeColor('coloresBase', i) }));
+    const fotosFull = curFotosArr.length >= 10;
+    const uploadBtnStyle = 'display:inline-flex;align-items:center;gap:0.4rem;padding:0.5rem 0.9rem;border-radius:9px;font-size:0.8rem;transition:background .2s;' + (fotosFull ? 'background:#cdbf9f;color:#f3ecdd;cursor:not-allowed;pointer-events:none;' : 'background:#221a10;color:#f6f1e7;cursor:pointer;');
+    const galleryBtnStyle = 'background:#fff;border:1px solid ' + (this.state.galleryOpen ? '#a8763a' : '#d8cdb6') + ';color:' + (this.state.galleryOpen ? '#a8763a' : '#6f6557') + ';padding:0.5rem 0.9rem;border-radius:9px;font-size:0.8rem;cursor:pointer;transition:all .2s;' + (fotosFull ? 'opacity:0.5;pointer-events:none;' : '');
+
+    const f = p ? {
+      nombre: p.nombre || '', kanji: p.kanji || '', significado: p.significado || '', descripcion: p.descripcion || '',
+      precioEfectivo: (p.precioEfectivo == null ? '' : p.precioEfectivo),
+      precioTransferencia: (p.precioTransferencia == null ? '' : p.precioTransferencia),
+      intensidades: (p.intensidades == null ? '' : p.intensidades),
+      alturaCm: (p.alturaCm == null ? '' : p.alturaCm),
+    } : { nombre: '', kanji: '', significado: '', descripcion: '', precioEfectivo: '', precioTransferencia: '', intensidades: '', alturaCm: '' };
+    const setF = (k, num) => (e) => this.updateField(k, num ? (e.target.value === '' ? '' : Number(e.target.value)) : e.target.value);
+
+    return {
+      ready: this.state.ready,
+      loading: !this.state.ready,
+      items,
+      count: products.length,
+      statusText: this.state.status,
+      hasSelection: !!p,
+      noSelection: this.state.ready && !p,
+      onAdd: () => this.addProduct(),
+      onReset: () => this.reset(),
+      onExportJs: () => this.exportJs(),
+      onExportZip: () => this.exportZip(),
+      f,
+      on: {
+        nombre: setF('nombre'), kanji: setF('kanji'), significado: setF('significado'), descripcion: setF('descripcion'),
+        precioEfectivo: setF('precioEfectivo', true), precioTransferencia: setF('precioTransferencia', true),
+        intensidades: setF('intensidades', true), alturaCm: setF('alturaCm', true),
+      },
+      fotos: fotosUI,
+      fotoCount: curFotosArr.length,
+      hasFotos: curFotosArr.length > 0,
+      noFotos: curFotosArr.length === 0,
+      fotosFull,
+      uploadBtnStyle,
+      galleryBtnStyle,
+      fotoHint: fotosFull ? 'Llegaste al máximo de 10 fotos' : (curFotosArr.length > 0 ? 'Podés agregar hasta ' + (10 - curFotosArr.length) + ' más' : 'Hasta 10 fotos por producto'),
+      onUpload: (e) => this.onUpload(e),
+      coloresLamp, coloresBase,
+      lampCount: lampArr.length, baseCount: baseArr.length,
+      lampCanAdd: lampArr.length < 10, baseCanAdd: baseArr.length < 10,
+      draftLamp: this.state.draftLamp || '', draftBase: this.state.draftBase || '',
+      lampPreview: previewOf(this.state.draftLamp), basePreview: previewOf(this.state.draftBase),
+      onDraftLamp: (e) => this.setState({ draftLamp: e.target.value }),
+      onDraftBase: (e) => this.setState({ draftBase: e.target.value }),
+      onAddLamp: () => this.addColor('coloresLampara', this.state.draftLamp),
+      onAddBase: () => this.addColor('coloresBase', this.state.draftBase),
+      onAddLampKey: (e) => { if (e.key === 'Enter') this.addColor('coloresLampara', this.state.draftLamp); },
+      onAddBaseKey: (e) => { if (e.key === 'Enter') this.addColor('coloresBase', this.state.draftBase); },
+      galleryOpen: this.state.galleryOpen,
+      onToggleGallery: () => this.setState({ galleryOpen: !this.state.galleryOpen }),
+      gallery,
+      luzAmbas: seg(!!p && (p.luz || 'ambas') === 'ambas'),
+      luzCalida: seg(!!p && p.luz === 'calida'),
+      luzFria: seg(!!p && p.luz === 'fria'),
+      setLuzAmbas: () => this.updateField('luz', 'ambas'),
+      setLuzCalida: () => this.updateField('luz', 'calida'),
+      setLuzFria: () => this.updateField('luz', 'fria'),
+      conUsb: seg(!!p && (p.conector || 'usb') === 'usb'),
+      conEnchufe: seg(!!p && p.conector === 'enchufe'),
+      setConUsb: () => this.updateField('conector', 'usb'),
+      setConEnchufe: () => this.updateField('conector', 'enchufe'),
+      onDeleteCurrent: () => { if (p && confirm('¿Borrar "' + (p.nombre || '') + '"?')) this.deleteProduct(sel); },
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#0c0c16"/><text x="50" y="60" font-size="30" text-anchor="middle" fill="#2fd2ff" font-family="sans-serif" font-weight="bold">ADM</text></svg></template>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Press+Start+2P&display=swap" rel="stylesheet">
+<script src="images-db.js"></script>
+<script src="zip-lite.js"></script>
+<script src="productos.js"></script>
+<style>
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:#07070d}
+  ::selection{background:#ff2e6e;color:#fff}
+  input,textarea,select{font-family:'Poppins',sans-serif}
+  input:focus,textarea:focus,select:focus{outline:none;border-color:#2fd2ff !important}
+  ::-webkit-scrollbar{width:12px;height:12px}
+  ::-webkit-scrollbar-track{background:#0a0a12}
+  ::-webkit-scrollbar-thumb{background:#2a2a40;border-radius:8px}
+  @keyframes fadein{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+</style>
+</helmet>
+
+<div style="min-height:100vh;font-family:'Poppins',sans-serif;color:#f4f4fb;background:#07070d">
+
+<!-- ============ PIN GATE ============ -->
+<sc-if value="{{ showPinGate }}" hint-placeholder-val="{{ false }}">
+  <div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px">
+    <div style="width:100%;max-width:380px;background:linear-gradient(180deg,#13131f,#0c0c15);border:2px solid #232338;border-radius:20px;padding:32px;text-align:center;animation:fadein .3s ease">
+      <img src="uploads/LOGO.png" alt="8 Bit Forge" style="height:56px;image-rendering:pixelated;margin-bottom:18px"/>
+      <div style="font-family:'Press Start 2P';font-size:11px;color:#2fd2ff;margin-bottom:6px;letter-spacing:1px">PANEL ADMIN</div>
+
+      <sc-if value="{{ needsCreatePin }}" hint-placeholder-val="{{ false }}">
+        <p style="font-size:15px;color:#9aa0b5;margin:14px 0 18px">Primera vez acá — creá un PIN para proteger el panel.</p>
+        <input type="password" value="{{ pinDraft1 }}" onChange="{{ setPinDraft1 }}" placeholder="Nuevo PIN" style="width:100%;padding:13px 14px;border-radius:12px;border:2px solid #2a2a40;background:#0d0d18;color:#fff;font-size:16px;margin-bottom:10px"/>
+        <input type="password" value="{{ pinDraft2 }}" onChange="{{ setPinDraft2 }}" placeholder="Confirmá el PIN" style="width:100%;padding:13px 14px;border-radius:12px;border:2px solid #2a2a40;background:#0d0d18;color:#fff;font-size:16px;margin-bottom:14px"/>
+        <sc-if value="{{ pinError }}" hint-placeholder-val="{{ false }}"><div style="color:#ff2e6e;font-size:14px;margin-bottom:10px">{{ pinError }}</div></sc-if>
+        <button onClick="{{ createPin }}" style="width:100%;font-family:'Press Start 2P';font-size:10px;color:#fff;background:#ff2e6e;border:none;border-radius:12px;border-bottom:4px solid #a01545;padding:15px;cursor:pointer;letter-spacing:1px" style-active="transform:translateY(3px);border-bottom-width:1px">CREAR PIN</button>
+      </sc-if>
+
+      <sc-if value="{{ needsEnterPin }}" hint-placeholder-val="{{ false }}">
+        <p style="font-size:15px;color:#9aa0b5;margin:14px 0 18px">Ingresá tu PIN para entrar.</p>
+        <input type="password" value="{{ pinTry }}" onChange="{{ setPinTry }}" onKeyDown="{{ pinKeyDown }}" placeholder="PIN" style="width:100%;padding:13px 14px;border-radius:12px;border:2px solid #2a2a40;background:#0d0d18;color:#fff;font-size:16px;margin-bottom:14px;text-align:center;letter-spacing:4px"/>
+        <sc-if value="{{ pinError }}" hint-placeholder-val="{{ false }}"><div style="color:#ff2e6e;font-size:14px;margin-bottom:10px">{{ pinError }}</div></sc-if>
+        <button onClick="{{ tryPin }}" style="width:100%;font-family:'Press Start 2P';font-size:10px;color:#fff;background:#25b34a;border:none;border-radius:12px;border-bottom:4px solid #0f6b27;padding:15px;cursor:pointer;letter-spacing:1px;margin-bottom:12px" style-active="transform:translateY(3px);border-bottom-width:1px">ENTRAR</button>
+        <a onClick="{{ resetPin }}" style="cursor:pointer;font-size:13px;color:#6f7488">Olvidé mi PIN — reiniciarlo</a>
+      </sc-if>
+    </div>
+  </div>
+</sc-if>
+
+<!-- ============ MAIN ADMIN ============ -->
+<sc-if value="{{ showAdmin }}" hint-placeholder-val="{{ false }}">
+  <div style="display:flex;min-height:100vh">
+
+    <!-- SIDEBAR -->
+    <aside style="width:290px;flex-shrink:0;background:#0a0a12;border-right:2px solid #1c1c2c;display:flex;flex-direction:column;height:100vh;position:sticky;top:0">
+      <div style="padding:18px 18px 14px;border-bottom:2px solid #1c1c2c;display:flex;align-items:center;gap:10px">
+        <img src="uploads/LOGO.png" alt="logo" style="height:34px;image-rendering:pixelated"/>
+        <span style="font-family:'Press Start 2P';font-size:9px;color:#2fd2ff;letter-spacing:.5px">ADMIN</span>
+      </div>
+      <div style="padding:14px 16px">
+        <input value="{{ search }}" onChange="{{ setSearch }}" placeholder="Buscar producto..." style="width:100%;padding:10px 12px;border-radius:10px;border:2px solid #2a2a40;background:#0d0d18;color:#fff;font-size:14px"/>
+      </div>
+      <button onClick="{{ addProduct }}" style="margin:0 16px 14px;font-family:'Press Start 2P';font-size:9px;color:#0a0a12;background:#ffc233;border:none;border-radius:10px;border-bottom:3px solid #b07d09;padding:12px;cursor:pointer;letter-spacing:.5px" style-active="transform:translateY(2px);border-bottom-width:1px">+ NUEVO PRODUCTO</button>
+      <div style="flex:1;overflow-y:auto;padding:0 10px 10px">
+        <sc-for list="{{ sidebarItems }}" as="it" hint-placeholder-count="9">
+          <div onClick="{{ it.select }}" style="{{ it.style }}">
+            <div style="font-size:14px;font-weight:600;color:#f4f4fb;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ it.name }}</div>
+            <div style="font-size:12px;color:#7288a0;margin-top:2px">{{ it.category }}</div>
+          </div>
+        </sc-for>
+        <sc-if value="{{ noResults }}" hint-placeholder-val="{{ false }}">
+          <div style="text-align:center;color:#6f7488;font-size:13px;padding:20px 10px">Sin resultados</div>
+        </sc-if>
+      </div>
+      <div style="padding:14px 16px;border-top:2px solid #1c1c2c;display:flex;flex-direction:column;gap:8px">
+        <button onClick="{{ exportJson }}" style="font-family:'Press Start 2P';font-size:8px;color:#7be08e;background:#0f2417;border:1.5px solid #2c7a3f;border-radius:10px;padding:11px;cursor:pointer;letter-spacing:.5px" style-hover="background:#15301f">⬇ DESCARGAR productos.js</button>
+        <button onClick="{{ exportPackage }}" disabled="{{ exporting }}" style="font-family:'Press Start 2P';font-size:8px;color:#ffc233;background:#241a05;border:1.5px solid #8a6100;border-radius:10px;padding:11px;cursor:pointer;letter-spacing:.5px" style-hover="background:#332204">{{ exportPackageLabel }}</button>
+        <label style="font-family:'Press Start 2P';font-size:8px;color:#c4c8da;background:#0d0d18;border:1.5px solid #2a2a40;border-radius:10px;padding:11px;cursor:pointer;letter-spacing:.5px;text-align:center;display:block" style-hover="border-color:#2fd2ff">
+          ⬆ CARGAR productos.js
+          <input type="file" accept=".js,.json,application/json,text/javascript" onChange="{{ importJson }}" style="display:none"/>
+        </label>
+        <div style="font-size:11px;color:#6f7488;text-align:center;line-height:1.4">El paquete trae la web entera (HTML + fotos en /images), lista para subir a GitHub.</div>
+        <button onClick="{{ resetToBase }}" style="font-family:'Poppins',sans-serif;font-size:12px;color:#8d8170;background:transparent;border:1.5px solid #2a2a40;border-radius:10px;padding:9px;cursor:pointer" style-hover="border-color:#ff2e6e;color:#ff2e6e">↺ Restablecer a productos.js</button>
+        <div style="font-size:12px;color:{{ savedColor }};text-align:center;min-height:16px">{{ savedLabel }}</div>
+      </div>
+    </aside>
+
+    <!-- MAIN PANEL -->
+    <main style="flex:1;padding:30px 40px 60px;max-width:900px">
+      <sc-if value="{{ hasSelection }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:26px">
+          <div>
+            <div style="font-family:'Press Start 2P';font-size:9px;color:#2fd2ff;letter-spacing:1px;margin-bottom:8px">EDITANDO PRODUCTO #{{ sel.id }}</div>
+            <h1 style="font-size:26px;margin:0;color:#fff">{{ sel.name }}</h1>
+          </div>
+          <div style="display:flex;gap:10px">
+            <button onClick="{{ duplicateProduct }}" style="font-family:'Press Start 2P';font-size:9px;color:#0a0a12;background:#2fd2ff;border:none;border-radius:10px;border-bottom:3px solid #1a8fb0;padding:12px 14px;cursor:pointer;letter-spacing:.5px;white-space:nowrap" style-active="transform:translateY(2px);border-bottom-width:1px">⧉ DUPLICAR</button>
+            <button onClick="{{ deleteProduct }}" style="font-family:'Press Start 2P';font-size:9px;color:#fff;background:#c81e46;border:none;border-radius:10px;border-bottom:3px solid #7a0f2b;padding:12px 14px;cursor:pointer;letter-spacing:.5px;white-space:nowrap" style-active="transform:translateY(2px);border-bottom-width:1px">🗑 ELIMINAR</button>
+          </div>
+        </div>
+
+        <!-- INFO BASICA -->
+        <section style="background:#0e0e18;border:2px solid #232338;border-radius:18px;padding:22px;margin-bottom:20px">
+          <div style="font-family:'Press Start 2P';font-size:10px;color:#8b3df5;margin-bottom:16px;letter-spacing:1px">INFORMACIÓN BÁSICA</div>
+          <label style="display:block;font-size:13px;color:#9aa0b5;margin-bottom:6px">Título</label>
+          <input value="{{ sel.name }}" onChange="{{ setName }}" style="width:100%;padding:12px 14px;border-radius:12px;border:2px solid #2a2a40;background:#0d0d18;color:#fff;font-size:16px;margin-bottom:16px"/>
+          <label style="display:block;font-size:13px;color:#9aa0b5;margin-bottom:6px">Categoría</label>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px">
+            <sc-for list="{{ categoryChips }}" as="c" hint-placeholder-count="4">
+              <button onClick="{{ c.select }}" style="{{ c.style }}">{{ c.label }}</button>
+            </sc-for>
+            <sc-if value="{{ newCatMode }}" hint-placeholder-val="{{ false }}">
+              <input value="{{ newCatDraft }}" onChange="{{ setNewCatDraft }}" onKeyDown="{{ newCatKeyDown }}" autoFocus="{{ true }}" placeholder="Nueva categoría..." style="padding:9px 12px;border-radius:10px;border:2px solid #2fd2ff;background:#0d0d18;color:#fff;font-size:14px;min-width:160px"/>
+              <button onClick="{{ confirmNewCat }}" style="font-size:13px;color:#0a0a12;background:#2fd2ff;border:none;border-radius:10px;padding:0 14px;cursor:pointer;font-weight:600">Agregar</button>
+              <button onClick="{{ cancelNewCat }}" style="font-size:13px;color:#c4c8da;background:#0d0d18;border:2px solid #2a2a40;border-radius:10px;padding:0 12px;cursor:pointer">Cancelar</button>
+            </sc-if>
+            <sc-if value="{{ newCatModeOff }}" hint-placeholder-val="{{ true }}">
+              <button onClick="{{ startNewCat }}" style="font-size:14px;color:#2fd2ff;background:#0d0d18;border:2px dashed #2a2a40;border-radius:10px;padding:9px 14px;cursor:pointer">+ Nueva categoría</button>
+            </sc-if>
+          </div>
+          <label style="display:block;font-size:13px;color:#9aa0b5;margin-bottom:6px">Descripción</label>
+          <textarea value="{{ sel.description }}" onChange="{{ setDescription }}" rows="4" style="width:100%;padding:12px 14px;border-radius:12px;border:2px solid #2a2a40;background:#0d0d18;color:#fff;font-size:15px;resize:vertical;font-family:'Poppins',sans-serif"></textarea>
+        </section>
+
+        <!-- FOTOS -->
+        <section style="background:#0e0e18;border:2px solid #232338;border-radius:18px;padding:22px;margin-bottom:20px">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+            <div style="font-family:'Press Start 2P';font-size:10px;color:#ffc233;letter-spacing:1px">FOTOS ({{ photoCount }}/15)</div>
+            <button onClick="{{ addPhoto }}" disabled="{{ photoLimitReached }}" style="font-family:'Press Start 2P';font-size:8px;color:#0a0a12;background:#ffc233;border:none;border-radius:8px;padding:9px 12px;cursor:pointer;opacity:{{ addPhotoOpacity }}">+ AGREGAR</button>
+            <input type="file" ref="{{ fileInputRef }}" accept="image/*" multiple="{{ true }}" onChange="{{ onFilesSelected }}" style="display:none"/>
+          </div>
+          <p style="font-size:13px;color:#6f7488;margin:0 0 14px">Arrastrá para ordenar — la primera foto es la principal.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:12px">
+            <sc-for list="{{ photoTiles }}" as="tile" hint-placeholder-count="0">
+              <div draggable="{{ true }}" onDragStart="{{ tile.onDragStart }}" onDragOver="{{ tile.onDragOver }}" onDrop="{{ tile.onDrop }}" style="{{ tile.wrapStyle }}">
+                {{ tile.el }}
+                <sc-if value="{{ tile.isMain }}" hint-placeholder-val="{{ false }}">
+                  <span style="position:absolute;bottom:5px;left:5px;font-family:'Press Start 2P';font-size:7px;color:#0a0a12;background:#ffc233;padding:4px 6px;border-radius:6px;letter-spacing:.5px">PRINCIPAL</span>
+                </sc-if>
+                <button onClick="{{ tile.remove }}" style="position:absolute;top:5px;right:5px;font-size:12px;line-height:1;color:#fff;background:rgba(20,8,12,.85);border:1.5px solid #ff2e6e;border-radius:7px;width:24px;height:24px;cursor:pointer">✕</button>
+              </div>
+            </sc-for>
+            <sc-if value="{{ showAddTile }}" hint-placeholder-val="{{ true }}">
+              <div onClick="{{ openFilePicker }}" style="width:96px;height:96px;border-radius:14px;border:2px dashed #2a2a40;background:#0d0d18;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#6f7488;font-size:28px" style-hover="border-color:#2fd2ff;color:#2fd2ff">+</div>
+            </sc-if>
+          </div>
+        </section>
+
+        <!-- PRECIOS -->
+        <section style="background:#0e0e18;border:2px solid #232338;border-radius:18px;padding:22px;margin-bottom:20px">
+          <div style="font-family:'Press Start 2P';font-size:10px;color:#fff;margin-bottom:18px;letter-spacing:1px">PRECIOS</div>
+
+          <label style="display:block;font-size:13px;color:#9aa0b5;margin-bottom:6px">Precio normal (minorista)</label>
+          <input type="number" value="{{ sel.priceRetail }}" onChange="{{ setRetail }}" style="width:100%;padding:12px 14px;border-radius:12px;border:2px solid #2a2a40;background:#0d0d18;color:#fff;font-size:18px;margin-bottom:20px;font-weight:600"/>
+
+          <div style="background:#0f2417;border:2px solid #2c7a3f;border-radius:14px;padding:16px 18px;margin-bottom:14px">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+              <span style="font-family:'Press Start 2P';font-size:9px;color:#7be08e;letter-spacing:.5px">MAYORISTA (×0.75)</span>
+              <label style="display:flex;align-items:center;gap:7px;font-size:13px;color:#9ab5a0;cursor:pointer">
+                <input type="checkbox" checked="{{ sel.priceWholesaleManual }}" onChange="{{ toggleWholesaleManual }}"/> Manual
+              </label>
+            </div>
+            <input type="number" value="{{ wholesaleDisplay }}" onChange="{{ setWholesale }}" disabled="{{ wholesaleAutoMode }}" style="width:100%;padding:11px 13px;border-radius:10px;border:2px solid #2c7a3f;background:{{ wholesaleBg }};color:#fff;font-size:17px;font-weight:600"/>
+          </div>
+
+          <div style="background:#241a05;border:2px solid #8a6100;border-radius:14px;padding:16px 18px">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+              <span style="font-family:'Press Start 2P';font-size:9px;color:#ffc233;letter-spacing:.5px">MAYORISTA GOLD (×0.6375)</span>
+              <label style="display:flex;align-items:center;gap:7px;font-size:13px;color:#e0c98a;cursor:pointer">
+                <input type="checkbox" checked="{{ sel.priceWholesaleGoldManual }}" onChange="{{ toggleGoldManual }}"/> Manual
+              </label>
+            </div>
+            <input type="number" value="{{ goldDisplay }}" onChange="{{ setGold }}" disabled="{{ goldAutoMode }}" style="width:100%;padding:11px 13px;border-radius:10px;border:2px solid #8a6100;background:{{ goldBg }};color:#fff;font-size:17px;font-weight:600"/>
+          </div>
+        </section>
+
+        <!-- ATRIBUTOS PERSONALIZADOS -->
+        <section style="background:#0e0e18;border:2px solid #232338;border-radius:18px;padding:22px;margin-bottom:20px">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+            <div style="font-family:'Press Start 2P';font-size:10px;color:#2fd2ff;letter-spacing:1px">ATRIBUTOS ({{ attrCount }}/5)</div>
+            <button onClick="{{ addAttr }}" disabled="{{ attrLimitReached }}" style="font-family:'Press Start 2P';font-size:8px;color:#0a0a12;background:#2fd2ff;border:none;border-radius:8px;padding:9px 12px;cursor:pointer;opacity:{{ addAttrOpacity }}">+ AGREGAR</button>
+          </div>
+          <p style="font-size:13px;color:#6f7488;margin:0 0 14px">Ej: "Talle" → S, M, L. Los nombres y valores quedan guardados y se sugieren en todos los productos.</p>
+          <div style="display:flex;flex-direction:column;gap:16px">
+            <sc-for list="{{ attrRows }}" as="row" hint-placeholder-count="0">
+              <div style="border:2px solid #232338;border-radius:14px;padding:14px">
+                <div style="display:flex;gap:10px;margin-bottom:10px">
+                  <input value="{{ row.name }}" onChange="{{ row.onNameChange }}" list="{{ row.dlId }}" placeholder="Nombre (ej: Talle)" style="flex:1;padding:10px 12px;border-radius:10px;border:2px solid #2a2a40;background:#0d0d18;color:#fff;font-size:14px;font-weight:600"/>
+                  <datalist id="{{ row.dlId }}">
+                    <sc-for list="{{ attrNameOptions }}" as="n" hint-placeholder-count="0"><option value="{{ n }}"></option></sc-for>
+                  </datalist>
+                  <button onClick="{{ row.remove }}" style="flex-shrink:0;font-size:14px;color:#ff2e6e;background:#1a0d12;border:2px solid #4a1f2c;border-radius:8px;width:38px;cursor:pointer">✕</button>
+                </div>
+                <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px">
+                  <sc-for list="{{ row.chips }}" as="chip" hint-placeholder-count="0">
+                    <span style="display:flex;align-items:center;gap:6px;background:#151527;border:1.5px solid #2fd2ff;color:#2fd2ff;border-radius:20px;padding:6px 10px 6px 12px;font-size:13px">{{ chip.v }}<a onClick="{{ chip.remove }}" style="cursor:pointer;color:#ff2e6e;font-weight:700">✕</a></span>
+                  </sc-for>
+                </div>
+                <div style="display:flex;gap:8px">
+                  <input value="{{ row.draft }}" onChange="{{ row.onDraftChange }}" onKeyDown="{{ row.onDraftKeyDown }}" list="{{ row.valDlId }}" placeholder="Escribí un valor y Enter" style="flex:1;padding:9px 12px;border-radius:10px;border:2px solid #2a2a40;background:#0d0d18;color:#fff;font-size:14px"/>
+                  <datalist id="{{ row.valDlId }}">
+                    <sc-for list="{{ row.valueOptions }}" as="v" hint-placeholder-count="0"><option value="{{ v }}"></option></sc-for>
+                  </datalist>
+                  <button onClick="{{ row.addDraft }}" style="font-size:13px;color:#0a0a12;background:#2fd2ff;border:none;border-radius:10px;padding:0 16px;cursor:pointer;font-weight:600">Agregar</button>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </section>
+
+      </sc-if>
+
+      <sc-if value="{{ noSelection }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;align-items:center;justify-content:center;height:60vh;color:#6f7488;font-size:16px;text-align:center;flex-direction:column;gap:14px">
+          <div style="font-family:'Press Start 2P';font-size:12px;color:#2a2a40">SIN PRODUCTOS</div>
+          <p>Creá tu primer producto con el botón "+ Nuevo producto".</p>
+        </div>
+      </sc-if>
+    </main>
+  </div>
+</sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const LS_PRODUCTS = 'hikari_admin_products';
+const LS_DICT = 'hikari_admin_attrdict';
+const LS_PIN = 'hikari_admin_pin';
+
+class Component extends DCLogic {
+  constructor(props){
+    super(props);
+    this.state = {
+      products: [], attrDict: {}, selectedId: null, search: '',
+      pinOk: false, pinExists: !!localStorage.getItem(LS_PIN),
+      pinDraft1:'', pinDraft2:'', pinTry:'', pinError:'',
+      savedFlash: false, loaded:false, dragIndex:null,
+      newCatMode:false, newCatDraft:''
+    };
+    this.fileInputRef = React.createRef();
+    this.imgCache = {};
+  }
+
+  componentDidMount(){
+    this.load().then(()=>this.migrateLegacyImages());
+    this.warmImageCache();
+  }
+
+  async warmImageCache(){
+    try{
+      const all = await window.ImagesDB.getAll();
+      all.forEach(rec=>{ this.imgCache[rec.name] = URL.createObjectURL(rec.blob); });
+      this.forceUpdate();
+    }catch(e){}
+  }
+
+  resolveImg(v){
+    if(!v) return '';
+    if(v.indexOf('data:')===0) return v;
+    return this.imgCache[v] || v;
+  }
+
+  slugify(s){
+    return String(s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'') || 'producto';
+  }
+
+  openFilePicker(){
+    if(this.fileInputRef.current) this.fileInputRef.current.click();
+  }
+
+  onFilesSelected(e){
+    const sel = this.state.products.find(p=>p.id===this.state.selectedId);
+    if(!sel) return;
+    const remaining = 15 - (sel.images||[]).length;
+    const files = Array.from(e.target.files || []).slice(0, Math.max(0,remaining));
+    if(!files.length){ e.target.value=''; return; }
+    const slug = this.slugify(sel.name);
+    const stamp = Date.now();
+    const newNames = [];
+    files.forEach((f,i)=>{
+      const extMatch = /\.([a-z0-9]+)$/i.exec(f.name||'');
+      const ext = (extMatch ? extMatch[1] : 'jpg').toLowerCase().replace(/[^a-z0-9]/g,'') || 'jpg';
+      const filename = 'images/' + slug + '-' + stamp + '-' + i + '.' + ext;
+      this.imgCache[filename] = URL.createObjectURL(f);
+      newNames.push(filename);
+      window.ImagesDB.put(filename, f).catch(()=>{});
+    });
+    this.mutateSelected(p => { p.images = [...(p.images||[]), ...newNames]; return p; });
+    e.target.value = '';
+  }
+
+  reorderPhoto(from, to){
+    if(from===to || from==null || to==null) return;
+    this.mutateSelected(p=>{
+      const imgs = [...(p.images||[])];
+      const [moved] = imgs.splice(from,1);
+      imgs.splice(to,0,moved);
+      p.images = imgs;
+      return p;
+    });
+  }
+
+  async load(){
+    let products = null, attrDict = {};
+    try{
+      const raw = localStorage.getItem(LS_PRODUCTS);
+      if(raw) products = JSON.parse(raw);
+      const rawD = localStorage.getItem(LS_DICT);
+      if(rawD) attrDict = JSON.parse(rawD);
+    }catch(e){}
+    if(!products){
+      try{
+        if(window.RETROPIXEL_DATA){
+          products = window.RETROPIXEL_DATA.products || [];
+          attrDict = window.RETROPIXEL_DATA.attributesDictionary || {};
+        }
+      }catch(e){}
+    }
+    if(!products) products = [];
+    products = products.map(p => p.categories ? p : Object.assign({}, p, { categories: p.category ? [p.category] : [] }));
+    this.setState({ products, attrDict, loaded:true, selectedId: products[0] ? products[0].id : null });
+  }
+
+  resetToBase(){
+    if(!window.confirm('¿Restablecer todos los productos a la versión actual de productos.js? Se perderán los cambios que no hayas exportado.')) return;
+    try{
+      localStorage.removeItem(LS_PRODUCTS);
+      localStorage.removeItem(LS_DICT);
+    }catch(e){}
+    let products = [], attrDict = {};
+    if(window.RETROPIXEL_DATA){
+      products = window.RETROPIXEL_DATA.products || [];
+      attrDict = window.RETROPIXEL_DATA.attributesDictionary || {};
+    }
+    products = products.map(p => p.categories ? p : Object.assign({}, p, { categories: p.category ? [p.category] : [] }));
+    this.setState({ products, attrDict, selectedId: products[0] ? products[0].id : null });
+  }
+  persist(products, attrDict){
+    try{
+      localStorage.setItem(LS_PRODUCTS, JSON.stringify(products));
+      localStorage.setItem(LS_DICT, JSON.stringify(attrDict));
+    }catch(e){}
+    this.setState({ savedFlash:true });
+    clearTimeout(this._sf);
+    this._sf = setTimeout(()=>this.setState({savedFlash:false}), 1400);
+  }
+
+  mutateSelected(fn){
+    const products = this.state.products.map(p => p.id === this.state.selectedId ? fn(Object.assign({}, p)) : p);
+    this.setState({ products });
+    this.persist(products, this.state.attrDict);
+  }
+
+  mergeDict(name, values){
+    if(!name) return;
+    const attrDict = Object.assign({}, this.state.attrDict);
+    const set = new Set([...(attrDict[name]||[]), ...values]);
+    attrDict[name] = Array.from(set);
+    this.setState({ attrDict });
+    return attrDict;
+  }
+
+  // ---- PIN ----
+  createPin(){
+    const { pinDraft1, pinDraft2 } = this.state;
+    if(!pinDraft1 || pinDraft1.length < 3){ this.setState({pinError:'El PIN debe tener al menos 3 caracteres'}); return; }
+    if(pinDraft1 !== pinDraft2){ this.setState({pinError:'Los PIN no coinciden'}); return; }
+    localStorage.setItem(LS_PIN, pinDraft1);
+    this.setState({ pinExists:true, pinOk:true, pinError:'' });
+  }
+  tryPin(){
+    const stored = localStorage.getItem(LS_PIN);
+    if(this.state.pinTry === stored){ this.setState({ pinOk:true, pinError:'' }); }
+    else this.setState({ pinError:'PIN incorrecto' });
+  }
+  resetPin(){
+    if(!window.confirm('¿Reiniciar el PIN? Vas a tener que crear uno nuevo.')) return;
+    localStorage.removeItem(LS_PIN);
+    this.setState({ pinExists:false, pinTry:'', pinError:'' });
+  }
+
+  // ---- CRUD ----
+  addProduct(){
+    const products = this.state.products;
+    const id = products.length ? Math.max(...products.map(p=>p.id))+1 : 1;
+    const defaultCat = Array.from(new Set(products.flatMap(p=>p.categories||[]).filter(Boolean))).sort((a,b)=>a.localeCompare(b,'es'))[0];
+    const fresh = { id, name:'Nuevo producto', categories: defaultCat ? [defaultCat] : [], description:'', images:[],
+      priceRetail:0, priceWholesale:0, priceWholesaleManual:false,
+      priceWholesaleGold:0, priceWholesaleGoldManual:false, customAttrs:[] };
+    const next = [...products, fresh];
+    this.setState({ products: next, selectedId: id, search:'' });
+    this.persist(next, this.state.attrDict);
+  }
+  async duplicateProduct(){
+    const products = this.state.products;
+    const sel = products.find(p=>p.id===this.state.selectedId);
+    if(!sel) return;
+    const id = products.length ? Math.max(...products.map(p=>p.id))+1 : 1;
+    const slug = this.slugify(sel.name) + '-copia';
+    // Clone each real photo file under a new name so the copy never shares storage
+    // with the original — deleting/replacing photos on one never breaks the other.
+    const newImages = await Promise.all((sel.images||[]).map(async (img, i) => {
+      if(!img || img.indexOf('data:')===0) return img;
+      try{
+        const blob = await window.ImagesDB.get(img);
+        if(!blob) return img;
+        const ext = (img.split('.').pop() || 'jpg').toLowerCase().replace(/[^a-z0-9]/g,'') || 'jpg';
+        const filename = 'images/' + slug + '-' + Date.now() + '-' + i + '.' + ext;
+        await window.ImagesDB.put(filename, blob);
+        this.imgCache[filename] = URL.createObjectURL(blob);
+        return filename;
+      }catch(e){ return img; }
+    }));
+    const copy = Object.assign({}, sel, {
+      id,
+      name: sel.name + ' (copia)',
+      categories: [...(sel.categories||[])],
+      images: newImages,
+      customAttrs: (sel.customAttrs||[]).map(a=>Object.assign({},a,{values:[...(a.values||[])]}))
+    });
+    const idx = products.findIndex(p=>p.id===sel.id);
+    const next = [...products.slice(0,idx+1), copy, ...products.slice(idx+1)];
+    this.setState({ products: next, selectedId: id, search:'' });
+    this.persist(next, this.state.attrDict);
+  }
+  deleteProduct(){
+    const sel = this.state.selectedId;
+    if(!sel) return;
+    if(!window.confirm('¿Eliminar este producto? No se puede deshacer.')) return;
+    const next = this.state.products.filter(p=>p.id!==sel);
+    this.setState({ products: next, selectedId: next[0] ? next[0].id : null });
+    this.persist(next, this.state.attrDict);
+  }
+  selectProduct(id){ this.setState({ selectedId:id }); }
+
+  // ---- import/export ----
+  exportJson(){
+    const payload = { attributesDictionary:this.state.attrDict, products:this.state.products };
+    const js = "window.RETROPIXEL_DATA = " + JSON.stringify(payload,null,2) + ";\n";
+    const blob = new Blob([js], {type:'text/javascript'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = 'productos.js'; a.click();
+    URL.revokeObjectURL(url);
+  }
+  // Migrates any legacy base64 (data:) photos into real IndexedDB-backed files,
+  // so they end up as actual files in /images on export instead of being skipped.
+  async migrateLegacyImages(){
+    let changed = false;
+    const products = await Promise.all(this.state.products.map(async (p) => {
+      if(!Array.isArray(p.images) || !p.images.some(img=>img && img.indexOf('data:')===0)) return p;
+      const slug = this.slugify(p.name);
+      const newImages = await Promise.all(p.images.map(async (img, i) => {
+        if(!img || img.indexOf('data:')!==0) return img;
+        try{
+          const resp = await fetch(img);
+          const blob = await resp.blob();
+          const ext = (blob.type.split('/')[1] || 'jpg').replace(/[^a-z0-9]/g,'') || 'jpg';
+          const filename = 'images/' + slug + '-legacy-' + i + '-' + Date.now() + '.' + ext;
+          await window.ImagesDB.put(filename, blob);
+          this.imgCache[filename] = URL.createObjectURL(blob);
+          changed = true;
+          return filename;
+        }catch(e){ return img; }
+      }));
+      return Object.assign({}, p, { images: newImages });
+    }));
+    if(changed){
+      this.setState({ products });
+      this.persist(products, this.state.attrDict);
+    }
+  }
+
+  async exportPackage(){
+    if(this.state.exporting) return;
+    this.setState({ exporting:true });
+    try{
+      await this.migrateLegacyImages();
+      const payload = { attributesDictionary:this.state.attrDict, products:this.state.products };
+      const js = "window.RETROPIXEL_DATA = " + JSON.stringify(payload,null,2) + ";\n";
+      const files = [{ name:'productos.js', data: js }];
+
+      const grab = async (p) => { try{ const r = await fetch(p); return r.ok ? await r.text() : ''; }catch(e){ return ''; } };
+      const siteFiles = ['index.html','admin.html','support.js','images-db.js','zip-lite.js','README.md'];
+      for(const name of siteFiles){
+        const text = await grab(name);
+        if(text) files.push({ name, data: text });
+      }
+
+      const seen = new Set();
+      for(const p of this.state.products){
+        for(const img of (p.images||[])){
+          if(!img || img.indexOf('data:')===0 || seen.has(img)) continue;
+          seen.add(img);
+          let blob = null;
+          try{ blob = await window.ImagesDB.get(img); }catch(e){}
+          if(!blob){ try{ const r = await fetch(img); if(r.ok) blob = await r.blob(); }catch(e){} }
+          if(blob) files.push({ name: img, data: blob });
+        }
+      }
+      const zipBlob = await window.ZipLite.build(files);
+      const url = URL.createObjectURL(zipBlob);
+      const a = document.createElement('a');
+      a.href = url; a.download = 'retropixel-sitio.zip'; a.click();
+      URL.revokeObjectURL(url);
+      this.setState({ savedFlash:true });
+      clearTimeout(this._sf);
+      this._sf = setTimeout(()=>this.setState({savedFlash:false}), 2200);
+    }catch(e){
+      window.alert('No se pudo generar el paquete: ' + e.message);
+    }
+    this.setState({ exporting:false });
+  }
+  importJson(e){
+    const file = e.target.files && e.target.files[0];
+    if(!file) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      try{
+        let text = reader.result;
+        const m = /window\.RETROPIXEL_DATA\s*=\s*([\s\S]*?);?\s*$/.exec(text.trim());
+        if(m) text = m[1];
+        const j = JSON.parse(text);
+        const products = j.products || [];
+        const attrDict = j.attributesDictionary || {};
+        this.setState({ products, attrDict, selectedId: products[0] ? products[0].id : null });
+        this.persist(products, attrDict);
+        this.migrateLegacyImages();
+      }catch(err){ window.alert('El archivo no es un productos.js/productos.json válido.'); }
+    };
+    reader.readAsText(file);
+  }
+
+  renderVals(){
+    const st = this.state;
+    const showPinGate = st.loaded && !st.pinOk;
+    const showAdmin = st.loaded && st.pinOk;
+    const products = st.products;
+    const search = st.search.trim().toLowerCase();
+    const filtered = search ? products.filter(p => p.name.toLowerCase().includes(search) || (p.categories||[]).join(' ').toLowerCase().includes(search)) : products;
+    const sel = products.find(p=>p.id===st.selectedId) || null;
+
+    const sidebarItems = filtered.map(p => ({
+      name: p.name, category: (p.categories && p.categories.length) ? p.categories.join(', ') : '—',
+      select: ()=>this.selectProduct(p.id),
+      style: "cursor:pointer;padding:11px 12px;border-radius:12px;margin-bottom:6px;" + (p.id===st.selectedId ? "background:#1a1a2c;border:2px solid #2fd2ff" : "background:transparent;border:2px solid transparent")
+    }));
+
+    const categoryOptions = Array.from(new Set(products.flatMap(p=>p.categories||[]).filter(Boolean))).sort((a,b)=>a.localeCompare(b,'es'));
+    const attrNameOptions = Object.keys(st.attrDict);
+
+    const categoryChips = categoryOptions.map(c=>{
+      const isSel = !!(sel && (sel.categories||[]).includes(c));
+      return {
+        label:c,
+        select:()=>{ if(sel) this.mutateSelected(p=>{
+          const cats = p.categories||[];
+          if(cats.includes(c)){
+            if(cats.length<=1) return p; // al menos una categoría es obligatoria
+            p.categories = cats.filter(x=>x!==c);
+          } else {
+            p.categories = [...cats, c];
+          }
+          return p;
+        }); },
+        style: "cursor:pointer;font-size:14px;padding:9px 14px;border-radius:10px;border:2px solid " + (isSel ? "#2fd2ff" : "#2a2a40") + ";background:" + (isSel ? "#0d2733" : "#0d0d18") + ";color:" + (isSel ? "#2fd2ff" : "#c4c8da")
+      };
+    });
+
+    let photoRows = [], attrRows = [];
+    let wholesaleDisplay = 0, goldDisplay = 0, wholesaleAutoMode = true, goldAutoMode = true, wholesaleBg = '#0a1410', goldBg = '#0a1410';
+
+    if(sel){
+      const retail = Number(sel.priceRetail)||0;
+      const autoWholesale = Math.round(retail*0.75);
+      const autoGold = Math.round(retail*0.6375);
+      wholesaleAutoMode = !sel.priceWholesaleManual;
+      goldAutoMode = !sel.priceWholesaleGoldManual;
+      wholesaleDisplay = wholesaleAutoMode ? autoWholesale : sel.priceWholesale;
+      goldDisplay = goldAutoMode ? autoGold : sel.priceWholesaleGold;
+      wholesaleBg = wholesaleAutoMode ? '#0a1410' : '#122018';
+      goldBg = goldAutoMode ? '#0a1410' : '#241a05';
+
+      photoRows = (sel.images||[]).map((val,i)=>({
+        n: i+1, src: this.resolveImg(val),
+        remove: ()=>{
+          const stillUsed = this.state.products.some(p2 => p2.id!==sel.id && (p2.images||[]).includes(val));
+          if(!stillUsed) window.ImagesDB.remove(val).catch(()=>{});
+          this.mutateSelected(p=>{ const imgs=[...p.images]; imgs.splice(i,1); p.images=imgs; return p; });
+        }
+      }));
+
+      attrRows = (sel.customAttrs||[]).map((attr,i)=>({
+        name: attr.name, dlId: 'attrnames-'+i, valDlId: 'attrvals-'+i,
+        draft: st['attrDraft_'+sel.id+'_'+i] || '',
+        valueOptions: st.attrDict[attr.name] || [],
+        chips: (attr.values||[]).map((v,j)=>({
+          v,
+          remove: ()=>this.mutateSelected(p=>{
+            const attrs=[...p.customAttrs]; const vals=[...attrs[i].values]; vals.splice(j,1);
+            attrs[i]=Object.assign({},attrs[i],{values:vals}); p.customAttrs=attrs; return p;
+          })
+        })),
+        onNameChange: (e)=>{
+          const name = e.target.value;
+          this.mutateSelected(p=>{ const attrs=[...p.customAttrs]; attrs[i]=Object.assign({},attrs[i],{name}); p.customAttrs=attrs; return p; });
+        },
+        remove: ()=>this.mutateSelected(p=>{ const attrs=[...p.customAttrs]; attrs.splice(i,1); p.customAttrs=attrs; return p; }),
+        onDraftChange: (e)=>this.setState({ ['attrDraft_'+sel.id+'_'+i]: e.target.value }),
+        onDraftKeyDown: (e)=>{ if(e.key==='Enter'){ e.preventDefault(); this.commitAttrDraft(i); } },
+        addDraft: ()=>this.commitAttrDraft(i)
+      }));
+    }
+
+    return {
+      showPinGate, showAdmin,
+      needsCreatePin: !st.pinExists, needsEnterPin: st.pinExists,
+      pinDraft1: st.pinDraft1, pinDraft2: st.pinDraft2, pinTry: st.pinTry, pinError: st.pinError,
+      setPinDraft1: e=>this.setState({pinDraft1:e.target.value}),
+      setPinDraft2: e=>this.setState({pinDraft2:e.target.value}),
+      setPinTry: e=>this.setState({pinTry:e.target.value}),
+      pinKeyDown: e=>{ if(e.key==='Enter') this.tryPin(); },
+      createPin: ()=>this.createPin(), tryPin: ()=>this.tryPin(), resetPin: ()=>this.resetPin(),
+
+      search: st.search, setSearch: e=>this.setState({search:e.target.value}),
+      sidebarItems, noResults: filtered.length===0 && products.length>0,
+      addProduct: ()=>this.addProduct(),
+      exportJson: ()=>this.exportJson(), importJson: e=>this.importJson(e),
+      exportPackage: ()=>this.exportPackage(), exporting: this.state.exporting,
+      resetToBase: ()=>this.resetToBase(),
+      exportPackageLabel: this.state.exporting ? '⏳ ARMANDO SITIO…' : '📦 DESCARGAR SITIO (.zip)',
+      savedLabel: st.savedFlash ? '✓ Guardado en este navegador' : '',
+      savedColor: '#7be08e',
+
+      hasSelection: !!sel, noSelection: !sel,
+      sel: sel || {}, categoryOptions, categoryChips,
+      newCatMode: this.state.newCatMode, newCatModeOff: !this.state.newCatMode, newCatDraft: this.state.newCatDraft,
+      startNewCat: ()=>this.setState({newCatMode:true, newCatDraft:''}),
+      cancelNewCat: ()=>this.setState({newCatMode:false, newCatDraft:''}),
+      setNewCatDraft: e=>this.setState({newCatDraft:e.target.value}),
+      newCatKeyDown: e=>{ if(e.key==='Enter'){ e.preventDefault(); this.confirmNewCat(); } },
+      confirmNewCat: ()=>this.confirmNewCat(),
+
+      setName: e=>this.mutateSelected(p=>{p.name=e.target.value;return p;}),
+      setDescription: e=>this.mutateSelected(p=>{p.description=e.target.value;return p;}),
+
+      photoCount: sel ? (sel.images||[]).length : 0,
+      photoLimitReached: sel ? (sel.images||[]).length>=15 : true,
+      addPhotoOpacity: sel && (sel.images||[]).length>=15 ? 0.4 : 1,
+      addPhoto: ()=>this.openFilePicker(),
+      openFilePicker: ()=>this.openFilePicker(),
+      onFilesSelected: (e)=>this.onFilesSelected(e),
+      fileInputRef: this.fileInputRef,
+      showAddTile: sel ? (sel.images||[]).length<15 : false,
+      photoTiles: photoRows.map((row,i)=>({
+        el: React.createElement('img',{src:row.src, style:{width:'100%',height:'100%',objectFit:'cover',display:'block',pointerEvents:'none'}}),
+        src: row.src, isMain: i===0, remove: row.remove,
+        onDragStart: ()=>this.setState({dragIndex:i}),
+        onDragOver: (e)=>e.preventDefault(),
+        onDrop: (e)=>{ e.preventDefault(); this.reorderPhoto(this.state.dragIndex, i); this.setState({dragIndex:null}); },
+        wrapStyle: "position:relative;width:96px;height:96px;border-radius:14px;overflow:hidden;background:#0d0d18;border:2px solid " + (i===0 ? "#ffc233" : "#2a2a40") + ";cursor:grab"
+      })),
+
+      setRetail: e=>this.mutateSelected(p=>{p.priceRetail=Number(e.target.value)||0;return p;}),
+      toggleWholesaleManual: e=>this.mutateSelected(p=>{p.priceWholesaleManual=e.target.checked; p.priceWholesale=Math.round((Number(p.priceRetail)||0)*0.75); return p;}),
+      toggleGoldManual: e=>this.mutateSelected(p=>{p.priceWholesaleGoldManual=e.target.checked; p.priceWholesaleGold=Math.round((Number(p.priceRetail)||0)*0.6375); return p;}),
+      setWholesale: e=>this.mutateSelected(p=>{p.priceWholesale=Number(e.target.value)||0;return p;}),
+      setGold: e=>this.mutateSelected(p=>{p.priceWholesaleGold=Number(e.target.value)||0;return p;}),
+      wholesaleDisplay, goldDisplay, wholesaleAutoMode, goldAutoMode, wholesaleBg, goldBg,
+
+      attrCount: sel ? (sel.customAttrs||[]).length : 0,
+      attrLimitReached: sel ? (sel.customAttrs||[]).length>=5 : true,
+      addAttrOpacity: sel && (sel.customAttrs||[]).length>=5 ? 0.4 : 1,
+      addAttr: ()=>this.mutateSelected(p=>{ p.customAttrs=[...(p.customAttrs||[]), {name:'',values:[]}]; return p; }),
+      attrRows, attrNameOptions,
+      deleteProduct: ()=>this.deleteProduct(),
+      duplicateProduct: ()=>this.duplicateProduct()
+    };
+  }
+
+  confirmNewCat(){
+    const val = (this.state.newCatDraft||'').trim();
+    if(!val) { this.setState({newCatMode:false}); return; }
+    this.mutateSelected(p=>{ const cats = p.categories||[]; p.categories = cats.includes(val) ? cats : [...cats, val]; return p; });
+    this.setState({newCatMode:false, newCatDraft:''});
+  }
+
+  commitAttrDraft(i){
+    const sel = this.state.products.find(p=>p.id===this.state.selectedId);
+    if(!sel) return;
+    const key = 'attrDraft_'+sel.id+'_'+i;
+    const val = (this.state[key]||'').trim();
+    if(!val) return;
+    const attr = sel.customAttrs[i];
+    if(attr.values && attr.values.includes(val)){ this.setState({[key]:''}); return; }
+    this.mutateSelected(p=>{
+      const attrs=[...p.customAttrs];
+      const vals=[...(attrs[i].values||[]), val];
+      attrs[i]=Object.assign({},attrs[i],{values:vals});
+      p.customAttrs=attrs;
+      return p;
+    });
+    if(attr.name) this.mergeDict(attr.name, [val]);
+    this.setState({[key]:''});
+  }
+}
+</script>
+</body>
+</html>
