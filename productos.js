@@ -831,6 +831,91 @@ window.RETROPIXEL_DATA = {
       "priceWholesaleGold": 0,
       "priceWholesaleGoldManual": false,
       "customAttrs": []
+    },
+    {
+      "id": 46,
+      "name": "#0001 - Pokubola Bulbasaur",
+      "categories": [
+        "figura"
+      ],
+      "description": "10cm de alto",
+      "images": [
+        "images/0001-pokebola-bulbasaur-1783538288231-0.webp"
+      ],
+      "priceRetail": 25000,
+      "priceWholesale": 0,
+      "priceWholesaleManual": false,
+      "priceWholesaleGold": 0,
+      "priceWholesaleGoldManual": false,
+      "customAttrs": []
+    },
+    {
+      "id": 47,
+      "name": " #0025 - Pokubola Pikachu",
+      "categories": [
+        "figura"
+      ],
+      "description": "10cm de alto",
+      "images": [
+        "images/0025-bola-de-pikachu-1783538339277-0.webp"
+      ],
+      "priceRetail": 25000,
+      "priceWholesale": 0,
+      "priceWholesaleManual": false,
+      "priceWholesaleGold": 0,
+      "priceWholesaleGoldManual": false,
+      "customAttrs": []
+    },
+    {
+      "id": 48,
+      "name": " #0133 - Pokubola Eevee",
+      "categories": [
+        "figura"
+      ],
+      "description": "10cm de alto",
+      "images": [
+        "images/0133-eevee-1783538434052-0.webp"
+      ],
+      "priceRetail": 25000,
+      "priceWholesale": 0,
+      "priceWholesaleManual": false,
+      "priceWholesaleGold": 0,
+      "priceWholesaleGoldManual": false,
+      "customAttrs": []
+    },
+    {
+      "id": 49,
+      "name": "#0007 - Pokubola Squirtle",
+      "categories": [
+        "figura"
+      ],
+      "description": "10cm de alto",
+      "images": [
+        "images/0007-bola-squirtle-1783538457593-0.webp"
+      ],
+      "priceRetail": 25000,
+      "priceWholesale": 0,
+      "priceWholesaleManual": false,
+      "priceWholesaleGold": 0,
+      "priceWholesaleGoldManual": false,
+      "customAttrs": []
+    },
+    {
+      "id": 50,
+      "name": "#0004 - Pokubola Charmander",
+      "categories": [
+        "figura"
+      ],
+      "description": "10cm de alto",
+      "images": [
+        "images/0004-bola-charmander-1783538485184-0.webp"
+      ],
+      "priceRetail": 25000,
+      "priceWholesale": 0,
+      "priceWholesaleManual": false,
+      "priceWholesaleGold": 0,
+      "priceWholesaleGoldManual": false,
+      "customAttrs": []
     }
   ]
 };
