@@ -462,9 +462,29 @@
               <span style="font-size:13px;color:{{ cartNextTierColor }}">{{ cartNextTierStr }}</span>
             </div>
           </sc-if>
+
+          <div style="margin-top:4px">
+            <div style="font-size:13px;color:#9aa0b5;margin-bottom:8px">Método de envío</div>
+            <div style="display:flex;gap:8px">
+              <button onClick="{{ setShippingHome }}" style="{{ shippingHomeSelStyle }}">A domicilio</button>
+              <button onClick="{{ setShippingBranch }}" style="{{ shippingBranchSelStyle }}">Sucursal Correo Argentino</button>
+            </div>
+          </div>
+          <sc-if value="{{ cartFreeShipMsg }}" hint-placeholder-val="{{ false }}">
+            <div style="font-size:12px;color:#6f7488">{{ cartFreeShipMsg }}</div>
+          </sc-if>
+
+          <div style="display:flex;justify-content:space-between;align-items:baseline">
+            <span style="font-size:13px;color:#9aa0b5">Subtotal</span>
+            <span style="font-size:14px;color:#c4c8da">{{ cartTotalStr }}</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:baseline">
+            <span style="font-size:13px;color:#9aa0b5">Envío</span>
+            <span style="font-size:14px;color:{{ cartShippingLabelColor }}">{{ cartShippingLabel }}</span>
+          </div>
           <div style="display:flex;justify-content:space-between;align-items:baseline">
             <span style="font-family:'Press Start 2P';font-size:8px;color:#9aa0b5;letter-spacing:.5px">{{ cartTotalLabel }}</span>
-            <span style="font-family:'Press Start 2P';font-size:24px;color:{{ cartTitleColor }}">{{ cartTotalStr }}</span>
+            <span style="font-family:'Press Start 2P';font-size:24px;color:{{ cartTitleColor }}">{{ cartGrandTotalStr }}</span>
           </div>
           <button onClick="{{ cartConfirmWhatsapp }}" style="font-family:'Press Start 2P';font-size:11px;color:#fff;background:#25b34a;border:none;border-bottom:4px solid #0f6b27;border-radius:12px;padding:16px;cursor:pointer;letter-spacing:1px" style-active="transform:translateY(3px);border-bottom-width:1px">FINALIZAR POR WHATSAPP</button>
         </div>
@@ -511,9 +531,30 @@
           </div>
         </div>
 
-        <div style="display:flex;align-items:center;justify-content:space-between;background:#0d0d18;border:2px solid #232338;border-radius:12px;padding:14px 16px;margin-bottom:16px">
-          <span style="font-family:'Press Start 2P';font-size:10px;color:#c4c8da">TOTAL</span>
-          <span style="font-family:'Press Start 2P';font-size:18px;color:#fff">{{ buyTotalStr }}</span>
+        <div style="margin-bottom:16px">
+          <div style="font-size:14px;color:#9aa0b5;margin-bottom:8px">Método de envío</div>
+          <div style="display:flex;gap:8px">
+            <button onClick="{{ setBuyShippingHome }}" style="{{ buyShippingHomeSelStyle }}">A domicilio</button>
+            <button onClick="{{ setBuyShippingBranch }}" style="{{ buyShippingBranchSelStyle }}">Sucursal Correo Argentino</button>
+          </div>
+          <sc-if value="{{ buyFreeShipMsg }}" hint-placeholder-val="{{ false }}">
+            <div style="font-size:12px;color:#6f7488;margin-top:8px">{{ buyFreeShipMsg }}</div>
+          </sc-if>
+        </div>
+
+        <div style="background:#0d0d18;border:2px solid #232338;border-radius:12px;padding:14px 16px;margin-bottom:16px;display:flex;flex-direction:column;gap:8px">
+          <div style="display:flex;justify-content:space-between;align-items:baseline">
+            <span style="font-size:13px;color:#9aa0b5">Subtotal</span>
+            <span style="font-size:14px;color:#c4c8da">{{ buySubtotalStr }}</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:baseline">
+            <span style="font-size:13px;color:#9aa0b5">Envío</span>
+            <span style="font-size:14px;color:{{ buyShippingLabelColor }}">{{ buyShippingLabel }}</span>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between">
+            <span style="font-family:'Press Start 2P';font-size:10px;color:#c4c8da">TOTAL</span>
+            <span style="font-family:'Press Start 2P';font-size:18px;color:#fff">{{ buyTotalStr }}</span>
+          </div>
         </div>
 
         <div style="display:flex;flex-direction:column;gap:10px">
@@ -547,12 +588,16 @@ class Component extends DCLogic {
     super(props);
     this.state = { view:'home', selId:1, cat:'Todos', qty:1, cartItems:[], cartOpen:false, added:false, photoIdx:0, lightboxOpen:false,
       buyOpen:false, buyId:null, buyQty:1, buySel:{}, buyAdded:false, buyError:false, detailSel:{},
-      isMobile: (typeof window!=='undefined' && window.innerWidth < 860), mobileMenuOpen:false };
+      isMobile: (typeof window!=='undefined' && window.innerWidth < 860), mobileMenuOpen:false,
+      shippingMethod:'domicilio', buyShippingMethod:'domicilio' };
     this.TIER_MAYORISTA = 100000;
     this.TIER_GOLD = 300000;
     this.imgCache = {};
     this.TIER_MAYORISTA_QTY = 5;
     this.TIER_GOLD_QTY = 10;
+    this.SHIPPING_FREE_FROM = 100000;
+    this.SHIPPING_HOME = 10000;
+    this.SHIPPING_BRANCH = 8000;
     this.WHATSAPP_NUMBER = '5491173743813';
 
     this.SPRITES = {
@@ -644,6 +689,7 @@ class Component extends DCLogic {
       const primaryCat = categories[0] || 'Otros';
       return {
         id: p.id, name: p.name, categories, cat: primaryCat, desc: p.description || '',
+        featured: !!p.featured,
         tag: primaryCat.toUpperCase(),
         retail, may, gold, images,
         retailStr: this.fmt(retail), mayStr: this.fmt(may), goldStr: this.fmt(gold),
@@ -782,8 +828,22 @@ class Component extends DCLogic {
     this._ba = setTimeout(()=>this.setState({buyAdded:false}), 1800);
   }
 
+  setShippingMethod(m){ this.setState({shippingMethod:m}); }
+  setBuyShippingMethod(m){ this.setState({buyShippingMethod:m}); }
+  shippingCost(subtotal, method){
+    if(subtotal >= this.SHIPPING_FREE_FROM) return 0;
+    return method==='sucursal' ? this.SHIPPING_BRANCH : this.SHIPPING_HOME;
+  }
+
+  shippingChipStyle(active){
+    return "cursor:pointer;flex:1;text-align:center;font-size:13px;padding:9px 10px;border-radius:10px;border:2px solid " + (active ? "#2fd2ff" : "#2a2a40") + ";background:" + (active ? "#0d2733" : "#0d0d18") + ";color:" + (active ? "#2fd2ff" : "#c4c8da");
+  }
+
   confirmBuyWhatsApp(item, qty, sel){
     if(this.attrsMissing(item, sel)){ this.setState({buyError:true}); return; }
+    const subtotal = item.retail*qty;
+    const shipping = this.shippingCost(subtotal, this.state.buyShippingMethod);
+    const shippingLabel = shipping===0 ? 'Envío: Sin cargo' : 'Envío (' + (this.state.buyShippingMethod==='sucursal' ? 'sucursal Correo Argentino' : 'a domicilio') + '): ' + this.fmt(shipping);
     const optsText = Object.keys(sel).length
       ? Object.entries(sel).map(([k,v])=>k+': '+v).join(' · ')
       : '';
@@ -791,7 +851,9 @@ class Component extends DCLogic {
       'Hola! Quiero comprar:',
       qty + 'x ' + item.name + (optsText ? ' (' + optsText + ')' : ''),
       'Precio unitario: ' + this.fmt(item.retail),
-      'Total: ' + this.fmt(item.retail*qty)
+      'Subtotal: ' + this.fmt(subtotal),
+      shippingLabel,
+      'Total: ' + this.fmt(subtotal + shipping)
     ];
     const text = encodeURIComponent(lines.join('\n'));
     window.open('https://wa.me/' + this.WHATSAPP_NUMBER + '?text=' + text, '_blank');
@@ -800,6 +862,8 @@ class Component extends DCLogic {
   renderVals(){
     const view = this.state.view;
     const all = this.data;
+    const featuredList = all.filter(p=>p.featured);
+    const homeProducts = featuredList.length ? featuredList : all;
     const list = this.state.cat==='Todos' ? all : all.filter(p=>(p.categories||[p.cat]).includes(this.state.cat));
     const spBase = all.find(p=>p.id===this.state.selId) || all[0];
     const images = (view==='product') ? (spBase.images || []) : [];
@@ -846,6 +910,10 @@ class Component extends DCLogic {
     const cartTotal = tier==='gold' ? goldTotal : tier==='mayorista' ? mayTotal : retailTotal; // used for display/header
     const tierUnitPrice = prod => tier==='gold' ? prod.gold : tier==='mayorista' ? prod.may : prod.retail;
     const cartEffectiveTotal = cartTotal;
+    const cartShipping = this.shippingCost(cartTotal, this.state.shippingMethod);
+    const cartGrandTotal = cartEffectiveTotal + cartShipping;
+    const cartShippingLabel = cartShipping===0 ? 'Sin cargo' : this.fmt(cartShipping);
+    const cartShippingFree = cartShipping===0;
     const tierBadgeText = tier==='gold' ? '★ NIVEL GOLD DESBLOQUEADO' : tier==='mayorista' ? '★ NIVEL MAYORISTA ACTIVO' : 'MAYORISTA DESDE $100.000 Y 5+ PROD.';
     const tierBadgeStyle = tier==='gold'
       ? "font-family:'Press Start 2P';font-size:8px;color:#ffd700;border:1.5px solid #8a6100;background:#241a05;padding:7px 9px;border-radius:10px;letter-spacing:.5px"
@@ -901,11 +969,14 @@ class Component extends DCLogic {
       };
     }) : [];
     const buyHasError = this.state.buyError && this.attrsMissing(buyProduct||{attrs:[]}, this.state.buySel);
-    const buyTotal = buyProduct ? buyProduct.retail * this.state.buyQty : 0;
+    const buySubtotal = buyProduct ? buyProduct.retail * this.state.buyQty : 0;
+    const buyShipping = this.shippingCost(buySubtotal, this.state.buyShippingMethod);
+    const buyShippingFree = buyShipping===0;
+    const buyTotal = buySubtotal + buyShipping;
 
     return {
       isHome:view==='home', isList:view==='list', isProduct:view==='product',
-      featured:withCardActions(all), list:withCardActions(list), sp, related:withCardActions(related), chips,
+      featured:withCardActions(homeProducts), list:withCardActions(list), sp, related:withCardActions(related), chips,
       cart:cartCount, qty:this.state.qty, added:this.state.added,
       bgLayer:this.bgLayer,
       navHome:()=>{ this.setState({view:'home',lightboxOpen:false}); window.scrollTo(0,0); },
@@ -943,10 +1014,21 @@ class Component extends DCLogic {
       cartConfirmWhatsapp: ()=>{
         const lines = ['Hola! Quiero confirmar mi pedido:'];
         cartLinesView.forEach(l=>lines.push(l.qty+'x '+l.name+' — '+l.lineStr));
-        lines.push('Total: ' + this.fmt(cartEffectiveTotal));
+        lines.push('Subtotal: ' + this.fmt(cartEffectiveTotal));
+        lines.push('Envío (' + (this.state.shippingMethod==='sucursal' ? 'sucursal Correo Argentino' : 'a domicilio') + '): ' + (cartShippingFree ? 'Sin cargo' : this.fmt(cartShipping)));
+        lines.push('Total: ' + this.fmt(cartGrandTotal));
         const text = encodeURIComponent(lines.join('\n'));
         window.open('https://wa.me/' + this.WHATSAPP_NUMBER + '?text=' + text, '_blank');
       },
+      shippingMethod: this.state.shippingMethod,
+      setShippingHome: ()=>this.setShippingMethod('domicilio'),
+      setShippingBranch: ()=>this.setShippingMethod('sucursal'),
+      shippingHomeSelStyle: this.shippingChipStyle(this.state.shippingMethod==='domicilio'),
+      shippingBranchSelStyle: this.shippingChipStyle(this.state.shippingMethod==='sucursal'),
+      cartShippingLabel, cartShippingFree,
+      cartShippingLabelColor: cartShippingFree ? '#7be08e' : '#c4c8da',
+      cartGrandTotalStr: this.fmt(cartGrandTotal),
+      cartFreeShipMsg: cartShippingFree ? '' : 'Envío sin cargo superando ' + this.fmt(this.SHIPPING_FREE_FROM) + ' en productos.',
 
       cartTotal, cartTotalHeaderStr: this.fmt(cartTotal), tier, tierBadgeText, tierBadgeStyle,
       toNextStr, mayActive: tier!=='minorista', goldActive: tier==='gold',
@@ -970,6 +1052,15 @@ class Component extends DCLogic {
       closeLightbox: ()=>this.setState({lightboxOpen:false}),
 
       buyOpen: this.state.buyOpen, buyProduct, buyAttrRows, buyHasError,
+      buyShippingMethod: this.state.buyShippingMethod,
+      setBuyShippingHome: ()=>this.setBuyShippingMethod('domicilio'),
+      setBuyShippingBranch: ()=>this.setBuyShippingMethod('sucursal'),
+      buyShippingHomeSelStyle: this.shippingChipStyle(this.state.buyShippingMethod==='domicilio'),
+      buyShippingBranchSelStyle: this.shippingChipStyle(this.state.buyShippingMethod==='sucursal'),
+      buySubtotalStr: this.fmt(buySubtotal),
+      buyShippingLabel: buyShippingFree ? 'Sin cargo' : this.fmt(buyShipping),
+      buyShippingFree, buyShippingLabelColor: buyShippingFree ? '#7be08e' : '#c4c8da',
+      buyFreeShipMsg: buyShippingFree ? '' : 'Envío sin cargo superando ' + this.fmt(this.SHIPPING_FREE_FROM) + '.',
       buyQty: this.state.buyQty, buyTotalStr: this.fmt(buyTotal),
       buyMainArt: buyProduct ? (buyProduct.images && buyProduct.images.length ? this.makeImgEl(buyProduct.images[0],{objectFit:'cover',borderRadius:'14px'},null,'buymodal') : buyProduct.art) : null,
       buyAdded: this.state.buyAdded,
