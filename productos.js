@@ -481,8 +481,8 @@ window.RETROPIXEL_DATA = {
       ],
       "description": "Inclye version de 16 y 9 piezas. Ambas con sus respectivos soportes.",
       "images": [
-        "images/3d-puzzle-017-1783388675764-0.webp",
-        "images/3d-puzzle-017-1783388678389-0.webp"
+        "images/3d-puzzle-017-1783523823125-0.webp",
+        "images/3d-puzzle-017-1783523823125-1.webp"
       ],
       "priceRetail": 20000,
       "priceWholesale": 0,
@@ -715,8 +715,8 @@ window.RETROPIXEL_DATA = {
       ],
       "description": "Inclye version de 16 y 9 piezas. Ambas con sus respectivos soportes.",
       "images": [
-        "images/3d-puzzle-032-1783388791880-0.webp",
-        "images/3d-puzzle-032-1783388794478-0.webp"
+        "images/3d-puzzle-032-1783523799406-0.webp",
+        "images/3d-puzzle-032-1783523799406-1.webp"
       ],
       "priceRetail": 20000,
       "priceWholesale": 0,
@@ -738,6 +738,94 @@ window.RETROPIXEL_DATA = {
         "images/3d-puzzle-033-1783387668184-0.webp"
       ],
       "priceRetail": 20000,
+      "priceWholesale": 0,
+      "priceWholesaleManual": false,
+      "priceWholesaleGold": 0,
+      "priceWholesaleGoldManual": false,
+      "customAttrs": []
+    },
+    {
+      "id": 42,
+      "name": "Tetr_S Go",
+      "categories": [
+        "Juego de mesa"
+      ],
+      "description": "",
+      "images": [
+        "images/nuevo-producto-1783534800856-0.webp",
+        "images/nuevo-producto-1783534800856-1.webp",
+        "images/nuevo-producto-1783534800856-2.webp",
+        "images/nuevo-producto-1783534800856-3.webp",
+        "images/nuevo-producto-1783534800856-4.webp",
+        "images/nuevo-producto-1783534800856-5.webp",
+        "images/nuevo-producto-1783534800856-6.webp",
+        "images/nuevo-producto-1783534800856-7.webp",
+        "images/nuevo-producto-1783534800856-8.webp"
+      ],
+      "priceRetail": 33000,
+      "priceWholesale": 0,
+      "priceWholesaleManual": false,
+      "priceWholesaleGold": 0,
+      "priceWholesaleGoldManual": false,
+      "customAttrs": []
+    },
+    {
+      "id": 43,
+      "name": "TETRYS",
+      "categories": [
+        "Juego de mesa"
+      ],
+      "description": "",
+      "images": [
+        "images/tetrys-1783536116296-0.webp",
+        "images/tetrys-1783536118355-0.webp",
+        "images/tetrys-1783536124184-0.webp",
+        "images/tetrys-1783536129472-0.webp",
+        "images/tetrys-1783536129472-1.webp",
+        "images/tetrys-1783536129472-2.webp",
+        "images/tetrys-1783536129472-3.webp",
+        "images/tetrys-1783536129472-4.webp"
+      ],
+      "priceRetail": 190000,
+      "priceWholesale": 0,
+      "priceWholesaleManual": false,
+      "priceWholesaleGold": 0,
+      "priceWholesaleGoldManual": false,
+      "customAttrs": []
+    },
+    {
+      "id": 44,
+      "name": "Figura R2D2 30cm",
+      "categories": [
+        "figura"
+      ],
+      "description": "Figura realista de 30cm de altura.",
+      "images": [
+        "images/figura-r2d2-30cm-1783537102915-0.webp",
+        "images/figura-r2d2-30cm-1783537102915-1.webp",
+        "images/figura-r2d2-30cm-1783537102915-2.webp"
+      ],
+      "priceRetail": 123000,
+      "priceWholesale": 0,
+      "priceWholesaleManual": false,
+      "priceWholesaleGold": 0,
+      "priceWholesaleGoldManual": false,
+      "customAttrs": []
+    },
+    {
+      "id": 45,
+      "name": "Juego de equilibrio Pokémon",
+      "categories": [
+        "Juego de mesa"
+      ],
+      "description": "",
+      "images": [
+        "images/juego-de-equilibrio-pokemon-1783537630465-0.webp",
+        "images/juego-de-equilibrio-pokemon-1783537630465-1.webp",
+        "images/juego-de-equilibrio-pokemon-1783537630465-2.webp",
+        "images/juego-de-equilibrio-pokemon-1783537630465-3.webp"
+      ],
+      "priceRetail": 33000,
       "priceWholesale": 0,
       "priceWholesaleManual": false,
       "priceWholesaleGold": 0,
