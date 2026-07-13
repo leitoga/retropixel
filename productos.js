@@ -938,6 +938,27 @@ window.RETROPIXEL_DATA = {
       "priceWholesaleGoldManual": false,
       "customAttrs": [],
       "featured": true
+    },
+    {
+      "id": 51,
+      "name": "Pokémon Balancing",
+      "categories": [
+        "Juego de mesa"
+      ],
+      "description": "",
+      "images": [
+        "images/pokemon-balancing-1783944822138-0.webp",
+        "images/pokemon-balancing-1783944827137-0.webp",
+        "images/pokemon-balancing-1783944827137-1.webp",
+        "images/pokemon-balancing-1783944827137-2.webp"
+      ],
+      "priceRetail": 68000,
+      "priceWholesale": 0,
+      "priceWholesaleManual": false,
+      "priceWholesaleGold": 0,
+      "priceWholesaleGoldManual": false,
+      "customAttrs": [],
+      "featured": true
     }
   ]
 };
