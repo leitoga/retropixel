@@ -1,5 +1,10 @@
 window.RETROPIXEL_DATA = {
-  "attributesDictionary": {},
+  "attributesDictionary": {
+    "Color": [
+      "Negro",
+      "Blanco"
+    ]
+  },
   "products": [
     {
       "id": 1,
@@ -1020,14 +1025,22 @@ window.RETROPIXEL_DATA = {
       "description": "",
       "images": [
         "images/exhibidor-manga-tamano-estandar-1784223341716-0.webp",
-        "images/exhibidor-manga-tamano-estandar-1784223346132-0.webp"
+        "images/exhibidor-manga-tamano-estandar-1784241335296-0.webp"
       ],
       "priceRetail": 16000,
       "priceWholesale": 0,
       "priceWholesaleManual": false,
       "priceWholesaleGold": 0,
       "priceWholesaleGoldManual": false,
-      "customAttrs": [],
+      "customAttrs": [
+        {
+          "name": "Color",
+          "values": [
+            "Negro",
+            "Blanco"
+          ]
+        }
+      ],
       "featured": true,
       "order": 0
     },
@@ -1047,7 +1060,15 @@ window.RETROPIXEL_DATA = {
       "priceWholesaleManual": false,
       "priceWholesaleGold": 0,
       "priceWholesaleGoldManual": false,
-      "customAttrs": [],
+      "customAttrs": [
+        {
+          "name": "Color",
+          "values": [
+            "Negro",
+            "Blanco"
+          ]
+        }
+      ],
       "featured": true,
       "order": 1
     },
@@ -1067,7 +1088,15 @@ window.RETROPIXEL_DATA = {
       "priceWholesaleManual": false,
       "priceWholesaleGold": 0,
       "priceWholesaleGoldManual": false,
-      "customAttrs": [],
+      "customAttrs": [
+        {
+          "name": "Color",
+          "values": [
+            "Negro",
+            "Blanco"
+          ]
+        }
+      ],
       "featured": true,
       "order": 3
     },
@@ -1087,7 +1116,15 @@ window.RETROPIXEL_DATA = {
       "priceWholesaleManual": false,
       "priceWholesaleGold": 0,
       "priceWholesaleGoldManual": false,
-      "customAttrs": [],
+      "customAttrs": [
+        {
+          "name": "Color",
+          "values": [
+            "Negro",
+            "Blanco"
+          ]
+        }
+      ],
       "featured": true,
       "order": 2
     }
