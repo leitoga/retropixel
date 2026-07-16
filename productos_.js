@@ -18,7 +18,8 @@ window.RETROPIXEL_DATA = {
       "priceWholesaleManual": false,
       "priceWholesaleGold": 0,
       "priceWholesaleGoldManual": false,
-      "customAttrs": []
+      "customAttrs": [],
+      "featured": true
     },
     {
       "id": 2,
@@ -37,7 +38,8 @@ window.RETROPIXEL_DATA = {
       "priceWholesaleManual": false,
       "priceWholesaleGold": 0,
       "priceWholesaleGoldManual": false,
-      "customAttrs": []
+      "customAttrs": [],
+      "featured": true
     },
     {
       "id": 3,
@@ -56,7 +58,8 @@ window.RETROPIXEL_DATA = {
       "priceWholesaleManual": false,
       "priceWholesaleGold": 0,
       "priceWholesaleGoldManual": false,
-      "customAttrs": []
+      "customAttrs": [],
+      "featured": true
     },
     {
       "id": 4,
@@ -75,7 +78,8 @@ window.RETROPIXEL_DATA = {
       "priceWholesaleManual": false,
       "priceWholesaleGold": 0,
       "priceWholesaleGoldManual": false,
-      "customAttrs": []
+      "customAttrs": [],
+      "featured": true
     },
     {
       "id": 5,
@@ -94,7 +98,8 @@ window.RETROPIXEL_DATA = {
       "priceWholesaleManual": false,
       "priceWholesaleGold": 0,
       "priceWholesaleGoldManual": false,
-      "customAttrs": []
+      "customAttrs": [],
+      "featured": true
     },
     {
       "id": 6,
@@ -114,7 +119,8 @@ window.RETROPIXEL_DATA = {
       "priceWholesaleManual": false,
       "priceWholesaleGold": 0,
       "priceWholesaleGoldManual": false,
-      "customAttrs": []
+      "customAttrs": [],
+      "featured": true
     },
     {
       "id": 7,
@@ -133,7 +139,8 @@ window.RETROPIXEL_DATA = {
       "priceWholesaleManual": false,
       "priceWholesaleGold": 0,
       "priceWholesaleGoldManual": false,
-      "customAttrs": []
+      "customAttrs": [],
+      "featured": true
     },
     {
       "id": 8,
@@ -151,7 +158,8 @@ window.RETROPIXEL_DATA = {
       "priceWholesaleManual": false,
       "priceWholesaleGold": 0,
       "priceWholesaleGoldManual": false,
-      "customAttrs": []
+      "customAttrs": [],
+      "featured": true
     },
     {
       "id": 9,
@@ -185,7 +193,8 @@ window.RETROPIXEL_DATA = {
       "priceWholesaleManual": false,
       "priceWholesaleGold": 0,
       "priceWholesaleGoldManual": false,
-      "customAttrs": []
+      "customAttrs": [],
+      "featured": true
     },
     {
       "id": 11,
@@ -202,7 +211,8 @@ window.RETROPIXEL_DATA = {
       "priceWholesaleManual": false,
       "priceWholesaleGold": 0,
       "priceWholesaleGoldManual": false,
-      "customAttrs": []
+      "customAttrs": [],
+      "featured": true
     },
     {
       "id": 12,
@@ -219,7 +229,8 @@ window.RETROPIXEL_DATA = {
       "priceWholesaleManual": false,
       "priceWholesaleGold": 0,
       "priceWholesaleGoldManual": false,
-      "customAttrs": []
+      "customAttrs": [],
+      "featured": true
     },
     {
       "id": 13,
@@ -237,7 +248,8 @@ window.RETROPIXEL_DATA = {
       "priceWholesaleManual": false,
       "priceWholesaleGold": 0,
       "priceWholesaleGoldManual": false,
-      "customAttrs": []
+      "customAttrs": [],
+      "featured": true
     },
     {
       "id": 14,
@@ -327,7 +339,8 @@ window.RETROPIXEL_DATA = {
       "priceWholesaleManual": false,
       "priceWholesaleGold": 0,
       "priceWholesaleGoldManual": false,
-      "customAttrs": []
+      "customAttrs": [],
+      "featured": true
     },
     {
       "id": 19,
@@ -767,7 +780,8 @@ window.RETROPIXEL_DATA = {
       "priceWholesaleManual": false,
       "priceWholesaleGold": 0,
       "priceWholesaleGoldManual": false,
-      "customAttrs": []
+      "customAttrs": [],
+      "featured": true
     },
     {
       "id": 43,
@@ -791,7 +805,8 @@ window.RETROPIXEL_DATA = {
       "priceWholesaleManual": false,
       "priceWholesaleGold": 0,
       "priceWholesaleGoldManual": false,
-      "customAttrs": []
+      "customAttrs": [],
+      "featured": true
     },
     {
       "id": 44,
@@ -810,7 +825,8 @@ window.RETROPIXEL_DATA = {
       "priceWholesaleManual": false,
       "priceWholesaleGold": 0,
       "priceWholesaleGoldManual": false,
-      "customAttrs": []
+      "customAttrs": [],
+      "featured": true
     },
     {
       "id": 45,
@@ -830,7 +846,8 @@ window.RETROPIXEL_DATA = {
       "priceWholesaleManual": false,
       "priceWholesaleGold": 0,
       "priceWholesaleGoldManual": false,
-      "customAttrs": []
+      "customAttrs": [],
+      "featured": true
     },
     {
       "id": 46,
@@ -847,7 +864,8 @@ window.RETROPIXEL_DATA = {
       "priceWholesaleManual": false,
       "priceWholesaleGold": 0,
       "priceWholesaleGoldManual": false,
-      "customAttrs": []
+      "customAttrs": [],
+      "featured": true
     },
     {
       "id": 47,
@@ -864,7 +882,8 @@ window.RETROPIXEL_DATA = {
       "priceWholesaleManual": false,
       "priceWholesaleGold": 0,
       "priceWholesaleGoldManual": false,
-      "customAttrs": []
+      "customAttrs": [],
+      "featured": true
     },
     {
       "id": 48,
@@ -881,7 +900,8 @@ window.RETROPIXEL_DATA = {
       "priceWholesaleManual": false,
       "priceWholesaleGold": 0,
       "priceWholesaleGoldManual": false,
-      "customAttrs": []
+      "customAttrs": [],
+      "featured": true
     },
     {
       "id": 49,
@@ -898,7 +918,8 @@ window.RETROPIXEL_DATA = {
       "priceWholesaleManual": false,
       "priceWholesaleGold": 0,
       "priceWholesaleGoldManual": false,
-      "customAttrs": []
+      "customAttrs": [],
+      "featured": true
     },
     {
       "id": 50,
@@ -915,7 +936,29 @@ window.RETROPIXEL_DATA = {
       "priceWholesaleManual": false,
       "priceWholesaleGold": 0,
       "priceWholesaleGoldManual": false,
-      "customAttrs": []
+      "customAttrs": [],
+      "featured": true
+    },
+    {
+      "id": 51,
+      "name": "Pokémon Balancing",
+      "categories": [
+        "Juego de mesa"
+      ],
+      "description": "",
+      "images": [
+        "images/pokemon-balancing-1783944822138-0.webp",
+        "images/pokemon-balancing-1783944827137-0.webp",
+        "images/pokemon-balancing-1783944827137-1.webp",
+        "images/pokemon-balancing-1783944827137-2.webp"
+      ],
+      "priceRetail": 68000,
+      "priceWholesale": 0,
+      "priceWholesaleManual": false,
+      "priceWholesaleGold": 0,
+      "priceWholesaleGoldManual": false,
+      "customAttrs": [],
+      "featured": true
     }
   ]
 };

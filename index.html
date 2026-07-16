@@ -689,7 +689,7 @@ class Component extends DCLogic {
       const primaryCat = categories[0] || 'Otros';
       return {
         id: p.id, name: p.name, categories, cat: primaryCat, desc: p.description || '',
-        featured: !!p.featured,
+        featured: !!p.featured, order: p.order||0,
         tag: primaryCat.toUpperCase(),
         retail, may, gold, images,
         retailStr: this.fmt(retail), mayStr: this.fmt(may), goldStr: this.fmt(gold),
@@ -861,7 +861,7 @@ class Component extends DCLogic {
 
   renderVals(){
     const view = this.state.view;
-    const all = this.data;
+    const all = [...this.data].sort((a,b)=>(a.order||0)-(b.order||0));
     const featuredList = all.filter(p=>p.featured);
     const homeProducts = featuredList.length ? featuredList : all;
     const list = this.state.cat==='Todos' ? all : all.filter(p=>(p.categories||[p.cat]).includes(this.state.cat));

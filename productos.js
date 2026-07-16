@@ -19,7 +19,8 @@ window.RETROPIXEL_DATA = {
       "priceWholesaleGold": 0,
       "priceWholesaleGoldManual": false,
       "customAttrs": [],
-      "featured": true
+      "featured": true,
+      "order": 5
     },
     {
       "id": 2,
@@ -39,7 +40,8 @@ window.RETROPIXEL_DATA = {
       "priceWholesaleGold": 0,
       "priceWholesaleGoldManual": false,
       "customAttrs": [],
-      "featured": true
+      "featured": true,
+      "order": 4
     },
     {
       "id": 3,
@@ -59,7 +61,8 @@ window.RETROPIXEL_DATA = {
       "priceWholesaleGold": 0,
       "priceWholesaleGoldManual": false,
       "customAttrs": [],
-      "featured": true
+      "featured": true,
+      "order": 6
     },
     {
       "id": 4,
@@ -79,7 +82,8 @@ window.RETROPIXEL_DATA = {
       "priceWholesaleGold": 0,
       "priceWholesaleGoldManual": false,
       "customAttrs": [],
-      "featured": true
+      "featured": true,
+      "order": 7
     },
     {
       "id": 5,
@@ -99,7 +103,8 @@ window.RETROPIXEL_DATA = {
       "priceWholesaleGold": 0,
       "priceWholesaleGoldManual": false,
       "customAttrs": [],
-      "featured": true
+      "featured": true,
+      "order": 8
     },
     {
       "id": 6,
@@ -120,7 +125,8 @@ window.RETROPIXEL_DATA = {
       "priceWholesaleGold": 0,
       "priceWholesaleGoldManual": false,
       "customAttrs": [],
-      "featured": true
+      "featured": true,
+      "order": 9
     },
     {
       "id": 7,
@@ -140,7 +146,8 @@ window.RETROPIXEL_DATA = {
       "priceWholesaleGold": 0,
       "priceWholesaleGoldManual": false,
       "customAttrs": [],
-      "featured": true
+      "featured": true,
+      "order": 10
     },
     {
       "id": 8,
@@ -159,7 +166,8 @@ window.RETROPIXEL_DATA = {
       "priceWholesaleGold": 0,
       "priceWholesaleGoldManual": false,
       "customAttrs": [],
-      "featured": true
+      "featured": true,
+      "order": 11
     },
     {
       "id": 9,
@@ -176,7 +184,8 @@ window.RETROPIXEL_DATA = {
       "priceWholesaleManual": false,
       "priceWholesaleGold": 0,
       "priceWholesaleGoldManual": false,
-      "customAttrs": []
+      "customAttrs": [],
+      "order": 12
     },
     {
       "id": 10,
@@ -194,7 +203,8 @@ window.RETROPIXEL_DATA = {
       "priceWholesaleGold": 0,
       "priceWholesaleGoldManual": false,
       "customAttrs": [],
-      "featured": true
+      "featured": true,
+      "order": 13
     },
     {
       "id": 11,
@@ -212,7 +222,8 @@ window.RETROPIXEL_DATA = {
       "priceWholesaleGold": 0,
       "priceWholesaleGoldManual": false,
       "customAttrs": [],
-      "featured": true
+      "featured": true,
+      "order": 14
     },
     {
       "id": 12,
@@ -230,7 +241,8 @@ window.RETROPIXEL_DATA = {
       "priceWholesaleGold": 0,
       "priceWholesaleGoldManual": false,
       "customAttrs": [],
-      "featured": true
+      "featured": true,
+      "order": 15
     },
     {
       "id": 13,
@@ -249,7 +261,8 @@ window.RETROPIXEL_DATA = {
       "priceWholesaleGold": 0,
       "priceWholesaleGoldManual": false,
       "customAttrs": [],
-      "featured": true
+      "featured": true,
+      "order": 16
     },
     {
       "id": 14,
@@ -267,7 +280,8 @@ window.RETROPIXEL_DATA = {
       "priceWholesaleManual": false,
       "priceWholesaleGold": 0,
       "priceWholesaleGoldManual": false,
-      "customAttrs": []
+      "customAttrs": [],
+      "order": 17
     },
     {
       "id": 15,
@@ -285,7 +299,8 @@ window.RETROPIXEL_DATA = {
       "priceWholesaleManual": false,
       "priceWholesaleGold": 0,
       "priceWholesaleGoldManual": false,
-      "customAttrs": []
+      "customAttrs": [],
+      "order": 18
     },
     {
       "id": 16,
@@ -303,7 +318,8 @@ window.RETROPIXEL_DATA = {
       "priceWholesaleManual": false,
       "priceWholesaleGold": 0,
       "priceWholesaleGoldManual": false,
-      "customAttrs": []
+      "customAttrs": [],
+      "order": 19
     },
     {
       "id": 17,
@@ -321,7 +337,8 @@ window.RETROPIXEL_DATA = {
       "priceWholesaleManual": false,
       "priceWholesaleGold": 0,
       "priceWholesaleGoldManual": false,
-      "customAttrs": []
+      "customAttrs": [],
+      "order": 20
     },
     {
       "id": 18,
@@ -340,7 +357,8 @@ window.RETROPIXEL_DATA = {
       "priceWholesaleGold": 0,
       "priceWholesaleGoldManual": false,
       "customAttrs": [],
-      "featured": true
+      "featured": true,
+      "order": 21
     },
     {
       "id": 19,
@@ -358,7 +376,8 @@ window.RETROPIXEL_DATA = {
       "priceWholesaleManual": false,
       "priceWholesaleGold": 0,
       "priceWholesaleGoldManual": false,
-      "customAttrs": []
+      "customAttrs": [],
+      "order": 22
     },
     {
       "id": 20,
@@ -376,7 +395,8 @@ window.RETROPIXEL_DATA = {
       "priceWholesaleManual": false,
       "priceWholesaleGold": 0,
       "priceWholesaleGoldManual": false,
-      "customAttrs": []
+      "customAttrs": [],
+      "order": 23
     },
     {
       "id": 21,
@@ -394,7 +414,8 @@ window.RETROPIXEL_DATA = {
       "priceWholesaleManual": false,
       "priceWholesaleGold": 0,
       "priceWholesaleGoldManual": false,
-      "customAttrs": []
+      "customAttrs": [],
+      "order": 24
     },
     {
       "id": 22,
@@ -412,7 +433,8 @@ window.RETROPIXEL_DATA = {
       "priceWholesaleManual": false,
       "priceWholesaleGold": 0,
       "priceWholesaleGoldManual": false,
-      "customAttrs": []
+      "customAttrs": [],
+      "order": 25
     },
     {
       "id": 23,
@@ -430,7 +452,8 @@ window.RETROPIXEL_DATA = {
       "priceWholesaleManual": false,
       "priceWholesaleGold": 0,
       "priceWholesaleGoldManual": false,
-      "customAttrs": []
+      "customAttrs": [],
+      "order": 26
     },
     {
       "id": 24,
@@ -448,7 +471,8 @@ window.RETROPIXEL_DATA = {
       "priceWholesaleManual": false,
       "priceWholesaleGold": 0,
       "priceWholesaleGoldManual": false,
-      "customAttrs": []
+      "customAttrs": [],
+      "order": 27
     },
     {
       "id": 25,
@@ -466,7 +490,8 @@ window.RETROPIXEL_DATA = {
       "priceWholesaleManual": false,
       "priceWholesaleGold": 0,
       "priceWholesaleGoldManual": false,
-      "customAttrs": []
+      "customAttrs": [],
+      "order": 28
     },
     {
       "id": 26,
@@ -484,7 +509,8 @@ window.RETROPIXEL_DATA = {
       "priceWholesaleManual": false,
       "priceWholesaleGold": 0,
       "priceWholesaleGoldManual": false,
-      "customAttrs": []
+      "customAttrs": [],
+      "order": 29
     },
     {
       "id": 27,
@@ -502,7 +528,8 @@ window.RETROPIXEL_DATA = {
       "priceWholesaleManual": false,
       "priceWholesaleGold": 0,
       "priceWholesaleGoldManual": false,
-      "customAttrs": []
+      "customAttrs": [],
+      "order": 30
     },
     {
       "id": 28,
@@ -520,7 +547,8 @@ window.RETROPIXEL_DATA = {
       "priceWholesaleManual": false,
       "priceWholesaleGold": 0,
       "priceWholesaleGoldManual": false,
-      "customAttrs": []
+      "customAttrs": [],
+      "order": 31
     },
     {
       "id": 29,
@@ -538,7 +566,8 @@ window.RETROPIXEL_DATA = {
       "priceWholesaleManual": false,
       "priceWholesaleGold": 0,
       "priceWholesaleGoldManual": false,
-      "customAttrs": []
+      "customAttrs": [],
+      "order": 32
     },
     {
       "id": 30,
@@ -556,7 +585,8 @@ window.RETROPIXEL_DATA = {
       "priceWholesaleManual": false,
       "priceWholesaleGold": 0,
       "priceWholesaleGoldManual": false,
-      "customAttrs": []
+      "customAttrs": [],
+      "order": 33
     },
     {
       "id": 31,
@@ -574,7 +604,8 @@ window.RETROPIXEL_DATA = {
       "priceWholesaleManual": false,
       "priceWholesaleGold": 0,
       "priceWholesaleGoldManual": false,
-      "customAttrs": []
+      "customAttrs": [],
+      "order": 34
     },
     {
       "id": 32,
@@ -592,7 +623,8 @@ window.RETROPIXEL_DATA = {
       "priceWholesaleManual": false,
       "priceWholesaleGold": 0,
       "priceWholesaleGoldManual": false,
-      "customAttrs": []
+      "customAttrs": [],
+      "order": 35
     },
     {
       "id": 33,
@@ -610,7 +642,8 @@ window.RETROPIXEL_DATA = {
       "priceWholesaleManual": false,
       "priceWholesaleGold": 0,
       "priceWholesaleGoldManual": false,
-      "customAttrs": []
+      "customAttrs": [],
+      "order": 36
     },
     {
       "id": 34,
@@ -628,7 +661,8 @@ window.RETROPIXEL_DATA = {
       "priceWholesaleManual": false,
       "priceWholesaleGold": 0,
       "priceWholesaleGoldManual": false,
-      "customAttrs": []
+      "customAttrs": [],
+      "order": 37
     },
     {
       "id": 35,
@@ -646,7 +680,8 @@ window.RETROPIXEL_DATA = {
       "priceWholesaleManual": false,
       "priceWholesaleGold": 0,
       "priceWholesaleGoldManual": false,
-      "customAttrs": []
+      "customAttrs": [],
+      "order": 38
     },
     {
       "id": 36,
@@ -664,7 +699,8 @@ window.RETROPIXEL_DATA = {
       "priceWholesaleManual": false,
       "priceWholesaleGold": 0,
       "priceWholesaleGoldManual": false,
-      "customAttrs": []
+      "customAttrs": [],
+      "order": 39
     },
     {
       "id": 37,
@@ -682,7 +718,8 @@ window.RETROPIXEL_DATA = {
       "priceWholesaleManual": false,
       "priceWholesaleGold": 0,
       "priceWholesaleGoldManual": false,
-      "customAttrs": []
+      "customAttrs": [],
+      "order": 40
     },
     {
       "id": 38,
@@ -700,7 +737,8 @@ window.RETROPIXEL_DATA = {
       "priceWholesaleManual": false,
       "priceWholesaleGold": 0,
       "priceWholesaleGoldManual": false,
-      "customAttrs": []
+      "customAttrs": [],
+      "order": 41
     },
     {
       "id": 39,
@@ -718,7 +756,8 @@ window.RETROPIXEL_DATA = {
       "priceWholesaleManual": false,
       "priceWholesaleGold": 0,
       "priceWholesaleGoldManual": false,
-      "customAttrs": []
+      "customAttrs": [],
+      "order": 42
     },
     {
       "id": 40,
@@ -736,7 +775,8 @@ window.RETROPIXEL_DATA = {
       "priceWholesaleManual": false,
       "priceWholesaleGold": 0,
       "priceWholesaleGoldManual": false,
-      "customAttrs": []
+      "customAttrs": [],
+      "order": 43
     },
     {
       "id": 41,
@@ -755,7 +795,8 @@ window.RETROPIXEL_DATA = {
       "priceWholesaleManual": false,
       "priceWholesaleGold": 0,
       "priceWholesaleGoldManual": false,
-      "customAttrs": []
+      "customAttrs": [],
+      "order": 44
     },
     {
       "id": 42,
@@ -781,7 +822,8 @@ window.RETROPIXEL_DATA = {
       "priceWholesaleGold": 0,
       "priceWholesaleGoldManual": false,
       "customAttrs": [],
-      "featured": true
+      "featured": true,
+      "order": 45
     },
     {
       "id": 43,
@@ -806,7 +848,8 @@ window.RETROPIXEL_DATA = {
       "priceWholesaleGold": 0,
       "priceWholesaleGoldManual": false,
       "customAttrs": [],
-      "featured": true
+      "featured": true,
+      "order": 46
     },
     {
       "id": 44,
@@ -826,7 +869,8 @@ window.RETROPIXEL_DATA = {
       "priceWholesaleGold": 0,
       "priceWholesaleGoldManual": false,
       "customAttrs": [],
-      "featured": true
+      "featured": true,
+      "order": 47
     },
     {
       "id": 45,
@@ -847,7 +891,8 @@ window.RETROPIXEL_DATA = {
       "priceWholesaleGold": 0,
       "priceWholesaleGoldManual": false,
       "customAttrs": [],
-      "featured": true
+      "featured": true,
+      "order": 48
     },
     {
       "id": 46,
@@ -865,7 +910,8 @@ window.RETROPIXEL_DATA = {
       "priceWholesaleGold": 0,
       "priceWholesaleGoldManual": false,
       "customAttrs": [],
-      "featured": true
+      "featured": true,
+      "order": 49
     },
     {
       "id": 47,
@@ -883,7 +929,8 @@ window.RETROPIXEL_DATA = {
       "priceWholesaleGold": 0,
       "priceWholesaleGoldManual": false,
       "customAttrs": [],
-      "featured": true
+      "featured": true,
+      "order": 50
     },
     {
       "id": 48,
@@ -901,7 +948,8 @@ window.RETROPIXEL_DATA = {
       "priceWholesaleGold": 0,
       "priceWholesaleGoldManual": false,
       "customAttrs": [],
-      "featured": true
+      "featured": true,
+      "order": 51
     },
     {
       "id": 49,
@@ -919,7 +967,8 @@ window.RETROPIXEL_DATA = {
       "priceWholesaleGold": 0,
       "priceWholesaleGoldManual": false,
       "customAttrs": [],
-      "featured": true
+      "featured": true,
+      "order": 52
     },
     {
       "id": 50,
@@ -937,7 +986,8 @@ window.RETROPIXEL_DATA = {
       "priceWholesaleGold": 0,
       "priceWholesaleGoldManual": false,
       "customAttrs": [],
-      "featured": true
+      "featured": true,
+      "order": 53
     },
     {
       "id": 51,
@@ -958,7 +1008,88 @@ window.RETROPIXEL_DATA = {
       "priceWholesaleGold": 0,
       "priceWholesaleGoldManual": false,
       "customAttrs": [],
-      "featured": true
+      "featured": true,
+      "order": 54
+    },
+    {
+      "id": 52,
+      "name": "Exhibidor Manga tamaño estandar",
+      "categories": [
+        "exhibidor"
+      ],
+      "description": "",
+      "images": [
+        "images/exhibidor-manga-tamano-estandar-1784223341716-0.webp",
+        "images/exhibidor-manga-tamano-estandar-1784223346132-0.webp"
+      ],
+      "priceRetail": 16000,
+      "priceWholesale": 0,
+      "priceWholesaleManual": false,
+      "priceWholesaleGold": 0,
+      "priceWholesaleGoldManual": false,
+      "customAttrs": [],
+      "featured": true,
+      "order": 0
+    },
+    {
+      "id": 53,
+      "name": "Exhibidor Manga XL",
+      "categories": [
+        "exhibidor"
+      ],
+      "description": "",
+      "images": [
+        "images/exhibidor-manga-xl-1784223367426-0.webp",
+        "images/exhibidor-manga-xl-1784223369569-0.webp"
+      ],
+      "priceRetail": 22000,
+      "priceWholesale": 0,
+      "priceWholesaleManual": false,
+      "priceWholesaleGold": 0,
+      "priceWholesaleGoldManual": false,
+      "customAttrs": [],
+      "featured": true,
+      "order": 1
+    },
+    {
+      "id": 54,
+      "name": "Exhibidor Juegos Nintendo Switch",
+      "categories": [
+        "exhibidor"
+      ],
+      "description": "",
+      "images": [
+        "images/exhibidor-juegos-nintendo-switch-1784223389750-0.webp",
+        "images/exhibidor-juegos-nintendo-switch-1784223395661-0.webp"
+      ],
+      "priceRetail": 15000,
+      "priceWholesale": 0,
+      "priceWholesaleManual": false,
+      "priceWholesaleGold": 0,
+      "priceWholesaleGoldManual": false,
+      "customAttrs": [],
+      "featured": true,
+      "order": 3
+    },
+    {
+      "id": 55,
+      "name": "Exhibidor Juegos PS5 / PS4 / PS3",
+      "categories": [
+        "exhibidor"
+      ],
+      "description": "",
+      "images": [
+        "images/exhibidor-juegos-ps5-ps4-ps3-1784223419525-0.webp",
+        "images/exhibidor-juegos-ps5-ps4-ps3-1784223422126-0.webp"
+      ],
+      "priceRetail": 16000,
+      "priceWholesale": 0,
+      "priceWholesaleManual": false,
+      "priceWholesaleGold": 0,
+      "priceWholesaleGoldManual": false,
+      "customAttrs": [],
+      "featured": true,
+      "order": 2
     }
   ]
 };
